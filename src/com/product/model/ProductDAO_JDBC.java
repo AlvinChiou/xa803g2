@@ -349,7 +349,8 @@ public class ProductDAO_JDBC implements ProductDAO_Interface {
 		//新增商品
 //		File insertFile = new File("D:\\Files\\455.jpg");      //new a file 
 //		FileInputStream fis = new FileInputStream(insertFile);
-		//以下三行將圖片轉換成byte[] 最後寫入Database
+		//以下三行將圖片轉換成byte[]陣列 
+		//最後寫入Database
 		FileInputStream fis = new FileInputStream("D:\\Files\\455.jpg");
 		int len = fis.available(); 
 		byte[] buffer = new byte[len];
