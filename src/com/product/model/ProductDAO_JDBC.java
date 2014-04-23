@@ -32,17 +32,17 @@ public class ProductDAO_JDBC implements ProductDAO_Interface {
 	String passwd = "xa803g2";
 	public static DataSource ds = null;
 	private static final String INSERT_STMT = "INSERT INTO Product(proNo, productName, category, price, image_1, image_2, image_3,"
-			+ "quantity, minimumQuantity, status, keywords, description, relatedProducts, priority, discount, score)"
+			+ "quantity, minimumQuantity, status, keyword, description, relatedProducts, priority, discount, score)"
 			+ "VALUES (PRODUCT_seq.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = "SELECT proNo, productName, category, price, image_1, image_2, image_3,"
-			+ "quantity, minimumQuantity, status, keywords, description, "
+			+ "quantity, minimumQuantity, status, keyword, description, "
 			+ "relatedProducts, priority, discount, score FROM Product ORDER BY proNo";
 	private static final String GET_ONE_STMT = "SELECT proNo, productName, category, price, image_1, image_2, image_3,"
-			+ "quantity, minimumQuantity, status, keywords, description, "
+			+ "quantity, minimumQuantity, status, keyword, description, "
 			+ "relatedProducts, priority, discount, score FROM Product WHERE proNo = ?";
 	private static final String DELETE = "DELETE FROM Product WHERE proNo = ?";
 	private static final String UPDATE = "UPDATE Product SET proNo = ?, productName = ?, category = ?, price = ?, image_1 = ?,"
-			+ "image_2 = ?, image_3 = ?, quantity = ?, minimumQuantity = ?, status = ?, keywords = ?, description = ?"
+			+ "image_2 = ?, image_3 = ?, quantity = ?, minimumQuantity = ?, status = ?, keyword = ?, description = ?"
 			+ ", relatedProducts = ?, priority = ?, discount = ?, score = ? WHERE proNo = ?";
 
 	@Override
@@ -65,7 +65,7 @@ public class ProductDAO_JDBC implements ProductDAO_Interface {
 			pstmt.setInt(7, productVO.getQuantity());
 			pstmt.setInt(8, productVO.getMinimumQuantity());
 			pstmt.setInt(9, productVO.getStatus());
-			pstmt.setString(10, productVO.getKeywords());
+			pstmt.setString(10, productVO.getKeyword());
 			pstmt.setString(11, productVO.getDescription());
 			pstmt.setString(12, productVO.getRelatedProducts());
 			pstmt.setInt(13, productVO.getPriority());
@@ -126,7 +126,7 @@ public class ProductDAO_JDBC implements ProductDAO_Interface {
 			pstmt.setInt(7, productVO.getQuantity());
 			pstmt.setInt(8, productVO.getMinimumQuantity());
 			pstmt.setInt(9, productVO.getStatus());
-			pstmt.setString(10, productVO.getKeywords());
+			pstmt.setString(10, productVO.getKeyword());
 			pstmt.setString(11, productVO.getDescription());
 			pstmt.setString(12, productVO.getRelatedProducts());
 			pstmt.setInt(13, productVO.getPriority());
@@ -236,7 +236,7 @@ public class ProductDAO_JDBC implements ProductDAO_Interface {
 				productVO.setQuantity(rs.getInt("quantity"));
 				productVO.setMinimumQuantity(rs.getInt("minimumQuantity"));
 				productVO.setStatus(rs.getInt("status"));
-				productVO.setKeywords(rs.getString("keywords"));
+				productVO.setKeyword(rs.getString("keyword"));
 				productVO.setDescription(rs.getString("description"));
 				productVO.setRelatedProducts(rs.getString("relatedProducts"));
 				productVO.setPriority(rs.getInt("priority"));
@@ -304,7 +304,7 @@ public class ProductDAO_JDBC implements ProductDAO_Interface {
 				productVO.setQuantity(rs.getInt("quantity"));
 				productVO.setMinimumQuantity(rs.getInt("minimumQuantity"));
 				productVO.setStatus(rs.getInt("status"));
-				productVO.setKeywords(rs.getString("keywords"));
+				productVO.setKeyword(rs.getString("keyword"));
 				productVO.setDescription(rs.getString("description"));
 				productVO.setRelatedProducts(rs.getString("relatedProducts"));
 				productVO.setPriority(rs.getInt("priority"));
@@ -351,10 +351,10 @@ public class ProductDAO_JDBC implements ProductDAO_Interface {
 //		FileInputStream fis = new FileInputStream(insertFile);
 		//以下三行將圖片轉換成byte[]陣列 
 		//最後寫入Database
-		FileInputStream fis = new FileInputStream("D:\\Files\\455.jpg");
+		FileInputStream fis = new FileInputStream("D:\\455.jpg");
 		int len = fis.available(); 
 		byte[] buffer = new byte[len];
-		
+		fis.read(buffer); //這行要加
 		ProductVO productVO_insert = new ProductVO();		
 		productVO_insert.setProductName("新耐吉斯．成犬火雞肉+田園蔬果【7.5公斤】");
 		productVO_insert.setCategory("狗飼料");
@@ -373,7 +373,7 @@ public class ProductDAO_JDBC implements ProductDAO_Interface {
 //															// Timestamp
 //		productVO_insert.setDateAvailable(availableDate);
 		productVO_insert.setStatus(0);
-		productVO_insert.setKeywords("狗飼料, 動物食品");
+		productVO_insert.setKeyword("狗飼料, 動物食品");
 		productVO_insert
 				.setDescription("添加大量的田園蔬果及鮮肉，美味的口感，滿足挑剔的胃口低敏配方，不含玉米、大豆、小麥、大豆…容易引起食物過敏的食材讓狗狗減少搔癢落毛困擾，讓毛髮更加柔柔亮亮喲");
 		productVO_insert.setRelatedProducts(null);
@@ -397,7 +397,7 @@ public class ProductDAO_JDBC implements ProductDAO_Interface {
 			System.out.println(product.getQuantity()+",");
 			System.out.println(product.getMinimumQuantity()+",");
 			System.out.println(product.getStatus()+",");
-			System.out.println(product.getKeywords()+",");
+			System.out.println(product.getKeyword()+",");
 			System.out.println(product.getDescription()+",");
 			System.out.println(product.getRelatedProducts()+",");
 			System.out.println(product.getPriority()+",");
