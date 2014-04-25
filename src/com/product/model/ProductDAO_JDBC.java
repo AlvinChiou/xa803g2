@@ -355,6 +355,7 @@ public class ProductDAO_JDBC implements ProductDAO_Interface {
 		int len = fis.available(); 
 		byte[] buffer = new byte[len];
 		fis.read(buffer); //這行要加
+		fis.close();
 		ProductVO productVO_insert = new ProductVO();		
 		productVO_insert.setProductName("新耐吉斯．成犬火雞肉+田園蔬果【7.5公斤】");
 		productVO_insert.setCategory("狗飼料");

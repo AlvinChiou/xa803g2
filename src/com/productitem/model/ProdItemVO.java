@@ -1,34 +1,34 @@
 package com.productitem.model;
 
 public class ProdItemVO {
-	private Integer itemNo;
-	private Integer itemQty;
-	private String itemMemo;
-	private Integer ordNo;
+	private Integer item_No;
+	private Integer item_Qty;
+	private String item_Memo;
+	private Long ord_No;
 	private Integer proNo;
-	public Integer getItemNo() {
-		return itemNo;
+	public Integer getItem_No() {
+		return item_No;
 	}
-	public void setItemNo(Integer itemNo) {
-		this.itemNo = itemNo;
+	public void setItemNo(Integer item_No) {
+		this.item_No = item_No;
 	}
-	public Integer getItemQty() {
-		return itemQty;
+	public Integer getItem_Qty() {
+		return item_Qty;
 	}
-	public void setItemQty(Integer itemQty) {
-		this.itemQty = itemQty;
+	public void setItem_Qty(Integer item_Qty) {
+		this.item_Qty = item_Qty;
 	}
-	public String getItemMemo() {
-		return itemMemo;
+	public String getItem_Memo() {
+		return item_Memo;
 	}
-	public void setItemMemo(String itemMemo) {
-		this.itemMemo = itemMemo;
+	public void setItem_Memo(String item_Memo) {
+		this.item_Memo = item_Memo;
 	}
-	public Integer getOrdNo() {
-		return ordNo;
+	public Long getOrd_No() {
+		return ord_No;
 	}
-	public void setOrdNo(Integer ordNo) {
-		this.ordNo = ordNo;
+	public void setOrd_No(Long ord_No) {
+		this.ord_No = ord_No;
 	}
 	public Integer getProNo() {
 		return proNo;
