@@ -2,6 +2,7 @@ package com.order.model;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 /**
 G	Era designator	AD
 y	Year	1996; 96
@@ -28,11 +29,14 @@ public class GetTimer {
 	public GetTimer(String DATE_FORMAT_NOW){
 		this.DATE_FORMAT_NOW = DATE_FORMAT_NOW; //"yyyy-MM-dd HH:mm:ss ";
 	}
-	public String GetToDay() {		 
-		Calendar tmpCal = Calendar.getInstance();
-		SimpleDateFormat tmpSDF = new SimpleDateFormat(DATE_FORMAT_NOW);
+	Calendar tmpCal = Calendar.getInstance();
+	SimpleDateFormat tmpSDF = new SimpleDateFormat(DATE_FORMAT_NOW);
+	public String GetToDay() {		 		
 		String toDay= tmpSDF.format(tmpCal.getTime()).toString();
 		return toDay;
 	}
+//	public Date GetTimestamp(){
+//		Date timeDate = tmpSDF.format(tmpCal.getTime());
+//	}
 
 }

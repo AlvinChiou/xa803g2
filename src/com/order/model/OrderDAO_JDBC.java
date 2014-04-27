@@ -1,11 +1,10 @@
 package com.order.model;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.Date;
 import java.sql.*;
-import java.sql.Date;
-import java.util.Calendar;
-import java.sql.Connection;
 
 import javax.management.RuntimeErrorException;
 
@@ -214,11 +213,65 @@ public class OrderDAO_JDBC implements OrderDAO_Interface {
 
 	@Override
 	public List<OrderVO> getAll() {
-
-		return null;
+		List<OrderVO> list = new ArrayList<OrderVO>();
+		OrderVO orderVO = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try{
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GETALL_STMT);			
+			rs = pstmt.executeQuery();
+			
+			orderVO.setOrdNo(rs.getString("ordNo"));
+			orderVO.setOrdTime(rs.getDate("ordTime"));
+			orderVO.setOrdAddr(rs.getString("ordAddr"));
+			orderVO.setOrdTel(rs.getString("ordTel"));
+			orderVO.setOrdGOTime(rs.getDate("ordGOTime"));
+			orderVO.setOrdArrTime(rs.getDate ("ordArrTime"));
+			orderVO.setOrdDelTime(rs.getDate("ordDelTime"));
+			orderVO.setOrdState(rs.getInt("ordState"));
+			orderVO.setMemNo(rs.getString("memNo"));
+			orderVO.setEmpNo(rs.getInt("empNo"));
+			
+		}catch(ClassNotFoundException e){
+			throw new RuntimeException("JDBC Driver Not fount."+e.getMessage());
+		}catch(SQLException se){
+			throw new RuntimeException("Database error occure."+se.getMessage());
+		}finally{
+			if(pstmt != null){
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null){
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return list;
 	}
 
 	public static void main(String[] args) {
-
+		OrderDAO_JDBC dao = new OrderDAO_JDBC();
+		
+		//INSERT DATA.
+		OrderVO orderVO_INSERT = new OrderVO();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date ordTime = new Date();
+		Calendar calendar = new GregorianCalendar();
+		orderVO_INSERT.setOrdTime((java.sql.Date)ordTime);
+		orderVO_INSERT.setOrdAddr("320桃園縣中壢市中大路300-1號");
+		orderVO_INSERT.setOrdTel("0978225413");
+		orderVO_INSERT.setOrdArrTime("");
 	}
 }

@@ -1,6 +1,5 @@
 package com.order.model;
 import java.sql.Date;
-
 public class OrderVO implements java.io.Serializable{
 	private String ordNo;
 	private Date ordTime;
