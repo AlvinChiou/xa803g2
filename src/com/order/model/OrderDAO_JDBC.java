@@ -263,15 +263,23 @@ public class OrderDAO_JDBC implements OrderDAO_Interface {
 
 	public static void main(String[] args) {
 		OrderDAO_JDBC dao = new OrderDAO_JDBC();
-		
+		int updateCount = 0;
 		//INSERT DATA.
 		OrderVO orderVO_INSERT = new OrderVO();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date ordTime = new Date();
+		
 		Calendar calendar = new GregorianCalendar();
 		orderVO_INSERT.setOrdTime((java.sql.Date)ordTime);
 		orderVO_INSERT.setOrdAddr("320桃園縣中壢市中大路300-1號");
 		orderVO_INSERT.setOrdTel("0978225413");
-		orderVO_INSERT.setOrdArrTime("");
+		orderVO_INSERT.setOrdArrTime(null);
+		orderVO_INSERT.setOrdDelTime(null);
+		orderVO_INSERT.setOrdState(0);
+		orderVO_INSERT.setMemNo("100569");
+		orderVO_INSERT.setEmpNo(null);
+		
+		updateCount = dao.insert(orderVO_INSERT);
+		System.out.println("成功插入"+updateCount+"筆資料!");
 	}
 }
