@@ -163,8 +163,53 @@ public class OrderDAO_JDBC implements OrderDAO_Interface {
 
 	@Override
 	public OrderVO findByPrimaryKey(Integer ordNo) {
-
-		return null;
+		OrderVO orderVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try{
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ONE_STMT);
+			while(rs.next()){
+				orderVO = new OrderVO();
+				orderVO.setOrdNo(rs.getString("ordNo"));
+				orderVO.setOrdTime(rs.getDate("ordTime"));
+				orderVO.setOrdAddr(rs.getString("ordAddr"));
+				orderVO.setOrdTel(rs.getString("ordTel"));
+				orderVO.setOrdGOTime(rs.getDate("ordGOTime"));
+				orderVO.setOrdArrTime(rs.getDate ("ordArrTime"));
+				orderVO.setOrdDelTime(rs.getDate("ordDelTime"));
+				orderVO.setOrdState(rs.getInt("ordState"));
+				orderVO.setMemNo(rs.getString("memNo"));
+				orderVO.setEmpNo(rs.getInt("empNo"));
+			}
+			
+			
+		}catch(ClassNotFoundException e){
+			throw new RuntimeException("JDBC Driver Not found."+e.getMessage());
+		}catch(SQLException se){
+			throw new RuntimeException("A database error occure:"+se.getMessage());
+		}finally{
+			if(pstmt != null){
+				try{
+					pstmt.close();
+				}catch(SQLException se){
+					se.printStackTrace(System.err);
+				}
+			}
+			if(con != null){
+				try{
+					con.close();
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		
+		return orderVO;
 	}
 
 	@Override
