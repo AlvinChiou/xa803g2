@@ -1,4 +1,7 @@
 package com.productitem.model;
+/*
+ * Use Table: PROD_ITEM
+ **/
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;

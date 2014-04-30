@@ -1,69 +1,70 @@
 package com.order.model;
-import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.*;
 public class OrderVO implements java.io.Serializable{
-	private String ordNo;
-	private Date ordTime;
-	private String ordAddr;
-	private String ordTel;
-	private Date ordGOTime;
-	private Date ordArrTime;
-	private Date ordDelTime;
-	private Integer ordState;
-	private String memNo;
+	private String ord_No;
+	private Timestamp ord_Time;
+	private String ord_Addr;
+	private String ord_Tel;
+	private Timestamp ord_GOTime;
+	private Timestamp ord_ArrTime;
+	private Timestamp ord_DelTime;
+	private Integer ord_State;
+	private String mem_No;
 	private Integer empNo;
-	public String getOrdNo() {
-		return ordNo;
+	public String getOrd_No() {
+		return ord_No;
 	}
-	public void setOrdNo(String ordNo) {
-		this.ordNo = ordNo;
+	public void setOrd_No(String ord_No) {
+		this.ord_No = ord_No;
 	}
-	public Date getOrdTime() {
-		return ordTime;
+	public Timestamp getOrd_Time() {
+		return ord_Time;
 	}
-	public void setOrdTime(Date ordTime) {
-		this.ordTime = ordTime;
+	public void setOrd_Time(Timestamp ord_Time) {
+		this.ord_Time = ord_Time;
 	}
-	public String getOrdAddr() {
-		return ordAddr;
+	public String getOrd_Addr() {
+		return ord_Addr;
 	}
-	public void setOrdAddr(String ordAddr) {
-		this.ordAddr = ordAddr;
+	public void setOrd_Addr(String ord_Addr) {
+		this.ord_Addr = ord_Addr;
 	}
-	public String getOrdTel() {
-		return ordTel;
+	public String getOrd_Tel() {
+		return ord_Tel;
 	}
-	public void setOrdTel(String ordTel) {
-		this.ordTel = ordTel;
+	public void setOrd_Tel(String ord_Tel) {
+		this.ord_Tel = ord_Tel;
 	}
-	public Date getOrdGOTime() {
-		return ordGOTime;
+	public Timestamp getOrd_GOTime() {
+		return ord_GOTime;
 	}
-	public void setOrdGOTime(Date ordGOTime) {
-		this.ordGOTime = ordGOTime;
+	public void setOrd_GOTime(Timestamp ord_GOTime) {
+		this.ord_GOTime = ord_GOTime;
 	}
-	public Date getOrdArrTime() {
-		return ordArrTime;
+	public Timestamp getOrd_ArrTime() {
+		return ord_ArrTime;
 	}
-	public void setOrdArrTime(Date ordArrTime) {
-		this.ordArrTime = ordArrTime;
+	public void setOrd_ArrTime(Timestamp ord_ArrTime) {
+		this.ord_ArrTime = ord_ArrTime;
 	}
-	public Date getOrdDelTime() {
-		return ordDelTime;
+	public Timestamp getOrd_DelTime() {
+		return ord_DelTime;
 	}
-	public void setOrdDelTime(Date ordDelTime) {
-		this.ordDelTime = ordDelTime;
+	public void setOrd_DelTime(Timestamp ord_DelTime) {
+		this.ord_DelTime = ord_DelTime;
 	}
-	public Integer getOrdState() {
-		return ordState;
+	public Integer getOrd_State() {
+		return ord_State;
 	}
-	public void setOrdState(Integer ordState) {
-		this.ordState = ordState;
+	public void setOrd_State(Integer ord_State) {
+		this.ord_State = ord_State;
 	}
-	public String getMemNo() {
-		return memNo;
+	public String getMem_No() {
+		return mem_No;
 	}
-	public void setMemNo(String memNo) {
-		this.memNo = memNo;
+	public void setMem_No(String mem_No) {
+		this.mem_No = mem_No;
 	}
 	public Integer getEmpNo() {
 		return empNo;
@@ -71,6 +72,7 @@ public class OrderVO implements java.io.Serializable{
 	public void setEmpNo(Integer empNo) {
 		this.empNo = empNo;
 	}
+	
 	
 	
 }

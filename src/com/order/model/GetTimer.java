@@ -28,15 +28,11 @@ public class GetTimer {
 	String DATE_FORMAT_NOW;
 	public GetTimer(String DATE_FORMAT_NOW){
 		this.DATE_FORMAT_NOW = DATE_FORMAT_NOW; //"yyyy-MM-dd HH:mm:ss ";
-	}
-	Calendar tmpCal = Calendar.getInstance();
-	SimpleDateFormat tmpSDF = new SimpleDateFormat(DATE_FORMAT_NOW);
-	public String GetToDay() {		 		
+	}		
+	public String GetToDay() {
+		Calendar tmpCal = Calendar.getInstance();
+		SimpleDateFormat tmpSDF = new SimpleDateFormat(DATE_FORMAT_NOW);
 		String toDay= tmpSDF.format(tmpCal.getTime()).toString();
 		return toDay;
 	}
-//	public Date GetTimestamp(){
-//		Date timeDate = tmpSDF.format(tmpCal.getTime());
-//	}
-
 }

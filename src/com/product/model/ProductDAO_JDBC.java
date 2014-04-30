@@ -24,7 +24,9 @@ import org.apache.catalina.tribes.transport.DataSender;
 import org.apache.jasper.tagplugins.jstl.core.Catch;
 
 import com.sun.xml.internal.ws.wsdl.writer.document.Port;
-
+/*
+ * Use Table: PRODUCT
+ **/
 public class ProductDAO_JDBC implements ProductDAO_Interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:orcl";
