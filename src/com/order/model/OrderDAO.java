@@ -5,12 +5,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+
+import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
 
 public class OrderDAO implements OrderDAO_Interface {
 
@@ -118,14 +122,14 @@ public class OrderDAO implements OrderDAO_Interface {
 	}
 
 	@Override
-	public void delete(Integer ordNo) {
+	public void delete(String ordNo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
 		try{
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
-			pstmt.setInt(1, ordNo);
+			pstmt.setString(1, ordNo);
 			pstmt.executeUpdate();
 			
 		}catch(SQLException se){
@@ -259,6 +263,6 @@ public class OrderDAO implements OrderDAO_Interface {
 			}
 		}
 		return list;
-	}
+	}	
 
 }
