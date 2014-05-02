@@ -4,8 +4,8 @@ import java.util.*;
 public interface OrderDAO_Interface {
 	public void insert(OrderVO orderVO);
 	public void update(OrderVO orderVO);
-	public void delete(String ordNo);
-	public OrderVO findByPrimaryKey(String ordNo);
+	public void delete(String ordno);
+	public OrderVO findByPrimaryKey(String ordno);
 	public List<OrderVO> getAll();
 	//萬用複合查詢(傳入參數型態Map)(回傳 List)
 	//public List<OrderVO> getAll(Map<String, String[]> map);

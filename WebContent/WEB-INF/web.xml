@@ -23,7 +23,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>OrderServlet</servlet-name>
-		<url-pattern>/order.do</url-pattern>
+		<url-pattern>/ORDER/order.do</url-pattern>
 	</servlet-mapping>
 	
 	<session-config>

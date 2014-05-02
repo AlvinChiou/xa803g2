@@ -33,10 +33,14 @@
 			</label>
 		</div>
 		<div class="input-control select">
-			<label>訂單狀態 <select name="orderstate">
+			
+			<label>訂單狀態 
+			
+			<select name="orderstate">
 					<option value="0">未出貨</option>
 					<option value="1">已出貨</option>
 			</select>
+			
 			</label>
 		</div>
 		<div class="input-control text">

@@ -30,16 +30,16 @@ public class OrderDAO implements OrderDAO_Interface {
 	static GetTimer toDay = new GetTimer("yyyyMMdd");
 	static String orderDate = toDay.GetToDay();
 	private static final String INSERT_STMT = 
-			"INSERT INTO pro_order(ord_No, ord_Time, ord_Addr, ord_Tel, ord_GOTime, ord_ArrTime, ord_DelTime, ord_State, mem_No, empNo)VALUES(CONCAT("
+			"INSERT INTO pro_order(ordno, ordtime, ordaddr, ordtel, ordgotime, ordarrtime, orddeltime, ordstate, memno, empno)VALUES(CONCAT("
 			+ orderDate+ ", PRO_ORDER_seq.NEXTVAL), SYSTIMESTAMP, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = 
-			"SELECT ord_No, to_char(ord_Time, 'yyyy-mm-dd hh24:mi:ss') AS ord_Time, ord_Addr, ord_Tel, to_char(ord_GOTime, 'yyyy-mm-dd hh24:mi:ss') AS ord_GOTime, to_char(ord_ArrTime, 'yyyy-mm-dd hh24:mi:ss') AS ord_ArrTime ,to_char(ord_DelTime, 'yyyy-mm-dd hh24:mi:ss') AS ord_DelTime ,ord_State, mem_No, empNo FROM pro_order ORDER BY ord_No";
+			"SELECT ordno, to_char(ordtime, 'yyyy-mm-dd hh24:mi:ss') AS ordtime, ordaddr, ordtel, to_char(ordgotime, 'yyyy-mm-dd hh24:mi:ss') AS ordgotime, to_char(ordarrtime, 'yyyy-mm-dd hh24:mi:ss') AS ordarrtime ,to_char(orddeltime, 'yyyy-mm-dd hh24:mi:ss') AS orddeltime ,ordstate, memno, empno FROM pro_order ORDER BY ordno";
 	private static final String GET_ONE_STMT = 
-			"SELECT ord_No, to_char(ord_Time, 'yyyy-mm-dd hh24:mi:ss') AS ord_Time, ord_Addr, ord_Tel, to_char(ord_GOTime, 'yyyy-mm-dd hh24:mi:ss') AS ord_GOTime, to_char(ord_ArrTime, 'yyyy-mm-dd hh24:mi:ss') AS ord_ArrTime,to_char(ord_DelTime, 'yyyy-mm-dd hh24:mi:ss') AS ord_DelTime,ord_State, mem_No, empNo FROM pro_order WHERE ord_No = ?";
+			"SELECT ordno, to_char(ordtime, 'yyyy-mm-dd hh24:mi:ss') AS ordtime, ordaddr, ordtel, to_char(ordgotime, 'yyyy-mm-dd hh24:mi:ss') AS ordgotime, to_char(ordarrtime, 'yyyy-mm-dd hh24:mi:ss') AS ordarrtime,to_char(orddeltime, 'yyyy-mm-dd hh24:mi:ss') AS orddeltime,ordstate, memno, empno FROM pro_order WHERE ordno = ?";
 	private static final String DELETE = 
-			"DELETE FROM pro_order WHERE ord_No = ?";
+			"DELETE FROM pro_order WHERE ordno = ?";
 	private static final String UPDATE = 
-			"UPDATE pro_order SET ord_Addr = ?, ord_Tel = ?, ord_GOTime = ?, ord_ArrTime = ?, ord_DelTime = ?, ord_State = ?, mem_No = ?, empNo = ? where ord_No =?";
+			"UPDATE pro_order SET ordaddr = ?, ordtel = ?, ordgotime = ?, ordarrtime = ?, orddeltime = ?, ordstate = ?, memno = ?, empno = ? where ordno =?";
 
 	@Override
 	public void insert(OrderVO orderVO) {
@@ -49,14 +49,14 @@ public class OrderDAO implements OrderDAO_Interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setString(1, orderVO.getOrd_Addr());
-			pstmt.setString(2, orderVO.getOrd_Tel());
-			pstmt.setTimestamp(3, orderVO.getOrd_GOTime());
-			pstmt.setTimestamp(4, orderVO.getOrd_ArrTime());
-			pstmt.setTimestamp(5, orderVO.getOrd_DelTime());
-			pstmt.setInt(6, orderVO.getOrd_State());
-			pstmt.setString(7, orderVO.getMem_No());
-			pstmt.setInt(8, orderVO.getEmpNo());
+			pstmt.setString(1, orderVO.getOrdaddr());
+			pstmt.setString(2, orderVO.getOrdtel());
+			pstmt.setTimestamp(3, orderVO.getOrdgotime());
+			pstmt.setTimestamp(4, orderVO.getOrdarrtime());
+			pstmt.setTimestamp(5, orderVO.getOrddeltime());
+			pstmt.setInt(6, orderVO.getOrdstate());
+			pstmt.setString(7, orderVO.getMemno());
+			pstmt.setInt(8, orderVO.getEmpno());
 			pstmt.executeUpdate();
 
 		} catch (SQLException se) {
@@ -87,16 +87,16 @@ public class OrderDAO implements OrderDAO_Interface {
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
-			pstmt.setString(1, orderVO.getOrd_Addr());
-			pstmt.setString(2, orderVO.getOrd_Tel());
+			pstmt.setString(1, orderVO.getOrdaddr());
+			pstmt.setString(2, orderVO.getOrdtel());
 			// pstmt.setTimestamp(3, orderVO.getOrd_Time());
-			pstmt.setTimestamp(3, orderVO.getOrd_GOTime());
-			pstmt.setTimestamp(4, orderVO.getOrd_ArrTime());
-			pstmt.setTimestamp(5, orderVO.getOrd_DelTime());
-			pstmt.setInt(6, orderVO.getOrd_State());
-			pstmt.setString(7, orderVO.getMem_No());
-			pstmt.setInt(8, orderVO.getEmpNo());
-			pstmt.setString(9, orderVO.getOrd_No());
+			pstmt.setTimestamp(3, orderVO.getOrdgotime());
+			pstmt.setTimestamp(4, orderVO.getOrdarrtime());
+			pstmt.setTimestamp(5, orderVO.getOrddeltime());
+			pstmt.setInt(6, orderVO.getOrdstate());
+			pstmt.setString(7, orderVO.getMemno());
+			pstmt.setInt(8, orderVO.getEmpno());
+			pstmt.setString(9, orderVO.getOrdno());
 
 			pstmt.executeUpdate();
 			
@@ -122,14 +122,14 @@ public class OrderDAO implements OrderDAO_Interface {
 	}
 
 	@Override
-	public void delete(String ordNo) {
+	public void delete(String ordno) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
 		try{
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
-			pstmt.setString(1, ordNo);
+			pstmt.setString(1, ordno);
 			pstmt.executeUpdate();
 			
 		}catch(SQLException se){
@@ -153,7 +153,7 @@ public class OrderDAO implements OrderDAO_Interface {
 	}
 
 	@Override
-	public OrderVO findByPrimaryKey(String ordNo) {
+	public OrderVO findByPrimaryKey(String ordno) {
 		
 		OrderVO orderVO = null;
 		Connection con = null;
@@ -163,21 +163,21 @@ public class OrderDAO implements OrderDAO_Interface {
 		try{
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
-			pstmt.setString(1, ordNo);
+			pstmt.setString(1, ordno);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()){
 				orderVO = new OrderVO();
-				orderVO.setOrd_No(rs.getString("ordNo"));
-				orderVO.setOrd_Time(rs.getTimestamp("ord_Time"));
-				orderVO.setOrd_Addr(rs.getString("ord_Addr"));
-				orderVO.setOrd_Tel(rs.getString("ord_Tel"));
-				orderVO.setOrd_GOTime(rs.getTimestamp("ord_GOTime"));
-				orderVO.setOrd_ArrTime(rs.getTimestamp("ord_ArrTime"));
-				orderVO.setOrd_DelTime(rs.getTimestamp("ord_DelTime"));
-				orderVO.setOrd_State(rs.getInt("ord_State"));
-				orderVO.setMem_No(rs.getString("mem_No"));
-				orderVO.setEmpNo(rs.getInt("empNo"));
+				orderVO.setOrdno(rs.getString("ordno"));
+				orderVO.setOrdtime(rs.getTimestamp("ordtime"));
+				orderVO.setOrdaddr(rs.getString("ordaddr"));
+				orderVO.setOrdtel(rs.getString("ordtel"));
+				orderVO.setOrdgotime(rs.getTimestamp("ordgOtime"));
+				orderVO.setOrdarrtime(rs.getTimestamp("ordarrtime"));
+				orderVO.setOrddeltime(rs.getTimestamp("orddeltime"));
+				orderVO.setOrdstate(rs.getInt("ordstate"));
+				orderVO.setMemno(rs.getString("memno"));
+				orderVO.setEmpno(rs.getInt("empno"));
 			}
 			
 		}catch(SQLException se){
@@ -224,16 +224,16 @@ public class OrderDAO implements OrderDAO_Interface {
 			
 			while(rs.next()){
 				orderVO = new OrderVO();
-				orderVO.setOrd_No(rs.getString("ord_No"));
-				orderVO.setOrd_Time(rs.getTimestamp("ord_Time"));
-				orderVO.setOrd_Addr(rs.getString("ord_Addr"));
-				orderVO.setOrd_Tel(rs.getString("ord_Tel"));
-				orderVO.setOrd_GOTime(rs.getTimestamp("ord_GOTime"));
-				orderVO.setOrd_ArrTime(rs.getTimestamp("ord_ArrTime"));
-				orderVO.setOrd_DelTime(rs.getTimestamp("ord_DelTime"));
-				orderVO.setOrd_State(rs.getInt("ord_State"));
-				orderVO.setMem_No(rs.getString("mem_No"));
-				orderVO.setEmpNo(rs.getInt("empNo"));
+				orderVO.setOrdno(rs.getString("ordno"));
+				orderVO.setOrdtime(rs.getTimestamp("ordtime"));
+				orderVO.setOrdaddr(rs.getString("ordaddr"));
+				orderVO.setOrdtel(rs.getString("ordtel"));
+				orderVO.setOrdgotime(rs.getTimestamp("ordgotime"));
+				orderVO.setOrdarrtime(rs.getTimestamp("ordarrtime"));
+				orderVO.setOrddeltime(rs.getTimestamp("orddeltime"));
+				orderVO.setOrdstate(rs.getInt("ordstate"));
+				orderVO.setMemno(rs.getString("memno"));
+				orderVO.setEmpno(rs.getInt("empno"));
 				list.add(orderVO);
 			}
 		}catch(SQLException se){

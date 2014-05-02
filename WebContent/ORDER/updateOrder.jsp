@@ -28,46 +28,48 @@
 	<form name="from1" method="post" action="order.do">
 		<label>
 		訂單編號
-		<input name="orderno" disabled="disabled" value="<%=orderVO.getOrd_No()%>"/>
+		<input name="orderno" disabled="disabled" value="<%=orderVO.getOrdno()%>"/>
 		</label>
 		<label>
 		訂購時間
-		<input name="ordertime" disabled="disabled" value="<%=orderVO.getOrd_Time()%>"/>
+		<input name="ordertime" disabled="disabled" value="<%=orderVO.getOrdtime()%>"/>
 		</label>
 		<label>
 		配送地址
-		<input name="orderaddress" disabled="disabled" value="<%=orderVO.getOrd_Addr()%>"/>
+		<input name="orderaddress" disabled="disabled" value="<%=orderVO.getOrdaddr()%>"/>
 		</label>
 		<label>
 		會員電話
-		<input name="ordertel" disabled="disabled" value="<%=orderVO.getOrd_Tel()%>"/>
+		<input name="ordertel" disabled="disabled" value="<%=orderVO.getOrdtel()%>"/>
 		</label>
 		<label>
 		出貨時間
-		<input name="ordergotime" value="<%=orderVO.getOrd_GOTime()%>"/>
+		<input name="ordergotime" value="<%=orderVO.getOrdgotime()%>"/>
 		</label>
 		<label>
 		送達時間
-		<input name="orderarrtime" value="<%=(orderVO.getOrd_ArrTime()==null)?"未登錄時間":orderVO.getOrd_ArrTime()%>"/>
+		<input name="orderarrtime" value="<%=(orderVO.getOrdarrtime()==null)?"未登錄時間":orderVO.getOrdarrtime()%>"/>
 		</label>
 		<label>
 		銷單時間
-		<input name="orderdeltime"value="<%=(orderVO.getOrd_DelTime()==null)?"未登錄時間":orderVO.getOrd_DelTime()%>"/>
+		<input name="orderdeltime"value="<%=(orderVO.getOrddeltime()==null)?"未登錄時間":orderVO.getOrddeltime()%>"/>
 		</label>
 		<label>
 		訂單狀態
+		<jsp:useBean id="orderService" scope="page" class="com.order.model.OrderService"/>
 		<select name="orderstate">
-			<option value="0">未出貨</option>
-			<option value="1">已出貨</option>
+			<c:forEach var="orderVO" items="${orderService.all}">
+			<option value="${orderVO.ordstate}" ${(orderVO.ordstate==0)?'selected':'selected'}>${(orderVO.ordstate==0)?"未出貨":"已出貨"}</option>
+			</c:forEach>
 		</select>
 		</label>
 		<label>
 		會員編號
-		<input name="memno" disabled="disabled" value="<%=orderVO.getMem_No()%>">
+		<input name="memno" disabled="disabled" value="<%=orderVO.getMemno()%>">
 		</label>
 		<label>
 		承辦人編號
-		<input name="empno" value="<%=(orderVO.getEmpNo()==null)?"":orderVO.getEmpNo()%>">
+		<input name="empno" value="<%=(orderVO.getEmpno()==null)?"":orderVO.getEmpno()%>">
 		</label>
 		<input name="action" type="hidden" value="update"> 
 		<input name="submit" value="更新訂單" type="submit">

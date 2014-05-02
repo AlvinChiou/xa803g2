@@ -10,33 +10,33 @@ public class OrderService {
 		dao = new OrderDAO();
 	}
 	
-	public OrderVO addOrder(String ord_Addr, String ord_Tel, java.sql.Timestamp ord_GOTime, java.sql.Timestamp ord_ArrTime, java.sql.Timestamp ord_DelTime, Integer ord_State, String mem_No, Integer empNo){
+	public OrderVO addOrder(String ordaddr, String ordtel, java.sql.Timestamp ordgotime, java.sql.Timestamp ordarrtime, java.sql.Timestamp orddeltime, Integer ordstate, String memno, Integer empno){
 		
 		OrderVO orderVO = new OrderVO();
-		orderVO.setOrd_Addr(ord_Addr);
-		orderVO.setOrd_Tel(ord_Tel);
-		orderVO.setOrd_GOTime(ord_GOTime);
-		orderVO.setOrd_ArrTime(ord_ArrTime);
-		orderVO.setOrd_DelTime(ord_DelTime);
-		orderVO.setOrd_State(ord_State);
-		orderVO.setMem_No(mem_No);
-		orderVO.setEmpNo(empNo);
+		orderVO.setOrdaddr(ordaddr);
+		orderVO.setOrdtel(ordtel);
+		orderVO.setOrdgotime(ordgotime);
+		orderVO.setOrdarrtime(ordarrtime);
+		orderVO.setOrddeltime(orddeltime);
+		orderVO.setOrdstate(ordstate);
+		orderVO.setMemno(memno);
+		orderVO.setEmpno(empno);
 		dao.insert(orderVO);
 		return orderVO;
 	}
 	
-	public OrderVO updateOrder(String ord_No, java.sql.Timestamp ord_Time, String ord_Addr, String ord_Tel, java.sql.Timestamp ord_GOTime, java.sql.Timestamp ord_ArrTime, java.sql.Timestamp ord_DelTime, Integer ord_State, String mem_No, Integer empNo){
+	public OrderVO updateOrder(String ordno, java.sql.Timestamp ordtime, String ordaddr, String ordtel, java.sql.Timestamp ordgotime, java.sql.Timestamp ordarrtime, java.sql.Timestamp orddeltime, Integer ordstate, String memno, Integer empno){
 		OrderVO orderVO = new OrderVO();
-		orderVO.setOrd_No(ord_No);
-		orderVO.setOrd_Time(ord_Time);
-		orderVO.setOrd_Addr(ord_Addr);
-		orderVO.setOrd_Tel(ord_Tel);
-		orderVO.setOrd_GOTime(ord_GOTime);
-		orderVO.setOrd_ArrTime(ord_ArrTime);
-		orderVO.setOrd_DelTime(ord_DelTime);
-		orderVO.setOrd_State(ord_State);
-		orderVO.setMem_No(mem_No);
-		orderVO.setEmpNo(empNo);
+		orderVO.setOrdno(ordno);
+		orderVO.setOrdtime(ordtime);
+		orderVO.setOrdaddr(ordaddr);
+		orderVO.setOrdtel(ordtel);
+		orderVO.setOrdgotime(ordgotime);
+		orderVO.setOrdarrtime(ordarrtime);
+		orderVO.setOrddeltime(orddeltime);
+		orderVO.setOrdstate(ordstate);
+		orderVO.setMemno(memno);
+		orderVO.setEmpno(empno);
 		dao.update(orderVO);
 		return orderVO;
 	}
@@ -45,12 +45,12 @@ public class OrderService {
 		return dao.getAll();
 	}
 	
-	public OrderVO getOneOrder(String ordNo){
-		return dao.findByPrimaryKey(ordNo);
+	public OrderVO getOneOrder(String ordno){
+		return dao.findByPrimaryKey(ordno);
 	}
 		
-	public void deleteOrder(String ordNo){
-		dao.delete(ordNo);
+	public void deleteOrder(String ordno){
+		dao.delete(ordno);
 	}
 	
 }
