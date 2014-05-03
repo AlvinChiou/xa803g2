@@ -120,7 +120,7 @@ public class OrderServlet extends HttpServlet {
 				Integer empno = new Integer(request.getParameter("empno").trim());
 				
 			}catch(Exception e){
-				
+				System.out.println();
 			}
 		}
 	}
