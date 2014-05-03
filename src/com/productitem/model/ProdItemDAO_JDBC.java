@@ -18,15 +18,15 @@ public class ProdItemDAO_JDBC implements ProdItemDAO_interface{
 	String passwd = "xa803g2"; 
 	
 	private static final String INSERT_STMT = 
-			"INSERT INTO Prod_Item(item_No, item_Qty, item_Memo, ord_No, proNo) VALUES(PROD_ITEM_seq.NEXTVAL, ?, ?, ?, ?)";
+			"INSERT INTO Prod_Item(itemno, itemqty, itemmemo, ordno, prono) VALUES(PROD_ITEM_seq.NEXTVAL, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT =
-			"SELECT item_No, item_Qty, item_Memo, ord_No, proNo FROM Prod_Item ORDER BY item_No";
+			"SELECT itemno, itemqty, itemmemo, ordno, prono FROM Prod_Item ORDER BY itemno";
 	private static final String GET_ONE_STMT = 
-			"SELECT item_No, item_Qty, item_Memo, ord_No, proNo FROM Prod_Item WHERE item_No = ?";
+			"SELECT itemno, itemqty, itemmemo, ordno, prono FROM Prod_Item WHERE itemno = ?";
 	private static final String DELETE = 
-			"DELETE FROM Prod_Item WHERE item_No = ?";
+			"DELETE FROM Prod_Item WHERE itemno = ?";
 	private static final String UPDATE =
-			"UPDATE Prod_Item SET item_No = ?, item_Qty = ?, item_Memo = ?, ord_No = ?, proNo = ? FROM Prod_Item WHERE item_No = ?";
+			"UPDATE Prod_Item SET itemno = ?, itemqty = ?, itemmemo = ?, ordno = ?, prono = ? FROM Prod_Item WHERE itemno = ?";
 	
 	@Override
 	public int insert(ProdItemVO prodItemVO) {
@@ -38,10 +38,10 @@ public class ProdItemDAO_JDBC implements ProdItemDAO_interface{
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
-			pstmt.setInt(1, prodItemVO.getItem_Qty());
-			pstmt.setString(2, prodItemVO.getItem_Memo());
-			pstmt.setLong(3, prodItemVO.getOrd_No());
-			pstmt.setInt(4, prodItemVO.getProNo());
+			pstmt.setInt(1, prodItemVO.getItemqty());
+			pstmt.setString(2, prodItemVO.getItemmemo());
+			pstmt.setLong(3, prodItemVO.getOrdno());
+			pstmt.setInt(4, prodItemVO.getProno());
 			
 			updateCount = pstmt.executeUpdate();
 		}catch(ClassNotFoundException e){
@@ -82,10 +82,10 @@ public class ProdItemDAO_JDBC implements ProdItemDAO_interface{
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
 			
-			pstmt.setInt(1, prodItemVO.getItem_Qty());
-			pstmt.setString(2, prodItemVO.getItem_Memo());
-			pstmt.setLong(3, prodItemVO.getOrd_No());
-			pstmt.setInt(4, prodItemVO.getProNo());
+			pstmt.setInt(1, prodItemVO.getItemqty());
+			pstmt.setString(2, prodItemVO.getItemmemo());
+			pstmt.setLong(3, prodItemVO.getOrdno());
+			pstmt.setInt(4, prodItemVO.getProno());
 			
 			updateCount = pstmt.executeUpdate();
 		}catch(ClassNotFoundException e){
@@ -111,7 +111,7 @@ public class ProdItemDAO_JDBC implements ProdItemDAO_interface{
 
 
 	@Override
-	public int delete(Integer itemNo) {
+	public int delete(Integer itemno) {
 		int updateCount = 0;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -119,7 +119,7 @@ public class ProdItemDAO_JDBC implements ProdItemDAO_interface{
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(DELETE);
-			pstmt.setInt(1, itemNo);
+			pstmt.setInt(1, itemno);
 			updateCount = pstmt.executeUpdate();
 		}catch(ClassNotFoundException e){
 			throw new RuntimeException("Couldn't load database driver. "
@@ -150,7 +150,7 @@ public class ProdItemDAO_JDBC implements ProdItemDAO_interface{
 
 
 	@Override
-	public ProdItemVO findByPrimaryKey(Integer itemNo) {
+	public ProdItemVO findByPrimaryKey(Integer itemno) {
 		ProdItemVO prodItemVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -160,15 +160,15 @@ public class ProdItemDAO_JDBC implements ProdItemDAO_interface{
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 			
-			pstmt.setInt(1, itemNo);
+			pstmt.setInt(1, itemno);
 			rs = pstmt.executeQuery();
 			while(rs.next()){
 				prodItemVO = new ProdItemVO();
-				prodItemVO.setItemNo(rs.getInt("item_No"));
-				prodItemVO.setItem_Qty(rs.getInt("item_Qty"));
-				prodItemVO.setItem_Memo(rs.getString("item_Memo"));
-				prodItemVO.setOrd_No(rs.getLong("ord_No"));
-				prodItemVO.setProNo(rs.getInt("proNo"));
+				prodItemVO.setItemno(rs.getInt("itemno"));
+				prodItemVO.setItemqty(rs.getInt("itemqty"));
+				prodItemVO.setItemmemo(rs.getString("itemmemo"));
+				prodItemVO.setOrdno(rs.getLong("ordno"));
+				prodItemVO.setProno(rs.getInt("prono"));
 			}
 			
 		}catch(ClassNotFoundException e){
@@ -221,11 +221,11 @@ public class ProdItemDAO_JDBC implements ProdItemDAO_interface{
 			
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
-			prodItemVO.setItemNo(rs.getInt("item_No"));
-			prodItemVO.setItem_Qty(rs.getInt("item_Qty"));
-			prodItemVO.setItem_Memo(rs.getString("item_Memo"));
-			prodItemVO.setOrd_No(rs.getLong("ord_No"));
-			prodItemVO.setProNo(rs.getInt("proNo"));
+			prodItemVO.setItemno(rs.getInt("itemno"));
+			prodItemVO.setItemqty(rs.getInt("itemqty"));
+			prodItemVO.setItemmemo(rs.getString("itemmemo"));
+			prodItemVO.setOrdno(rs.getLong("ordno"));
+			prodItemVO.setProno(rs.getInt("prono"));
 		}catch(ClassNotFoundException e){
 			throw new RuntimeException("Couldn't load database driver. "+e.getMessage());
 		}catch(SQLException se){
@@ -261,10 +261,10 @@ public class ProdItemDAO_JDBC implements ProdItemDAO_interface{
 		
 		//INSERT DATA.
 		ProdItemVO prodItemVO_insert = new ProdItemVO();
-		prodItemVO_insert.setItem_Qty(5);
-		prodItemVO_insert.setItem_Memo("請於下午時段送達");
-		prodItemVO_insert.setOrd_No(20140411001L);
-		prodItemVO_insert.setProNo(100103);
+		prodItemVO_insert.setItemqty(5);
+		prodItemVO_insert.setItemmemo("請於下午時段送達");
+		prodItemVO_insert.setOrdno(20140411001L);
+		prodItemVO_insert.setProno(100103);
 		int updateCount_insert = dao.insert(prodItemVO_insert);
 		System.out.println("成功插入:"+updateCount_insert+"筆紀錄.");
 		

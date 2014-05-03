@@ -1,40 +1,41 @@
 package com.productitem.model;
 
 public class ProdItemVO {
-	private Integer item_No;
-	private Integer item_Qty;
-	private String item_Memo;
-	private Long ord_No;
-	private Integer proNo;
-	public Integer getItem_No() {
-		return item_No;
+	private Integer itemno;
+	private Integer itemqty;
+	private String itemmemo;
+	private Long ordno;
+	private Integer prono;
+	public Integer getItemno() {
+		return itemno;
 	}
-	public void setItemNo(Integer item_No) {
-		this.item_No = item_No;
+	public void setItemno(Integer itemno) {
+		this.itemno = itemno;
 	}
-	public Integer getItem_Qty() {
-		return item_Qty;
+	public Integer getItemqty() {
+		return itemqty;
 	}
-	public void setItem_Qty(Integer item_Qty) {
-		this.item_Qty = item_Qty;
+	public void setItemqty(Integer itemqty) {
+		this.itemqty = itemqty;
 	}
-	public String getItem_Memo() {
-		return item_Memo;
+	public String getItemmemo() {
+		return itemmemo;
 	}
-	public void setItem_Memo(String item_Memo) {
-		this.item_Memo = item_Memo;
+	public void setItemmemo(String itemmemo) {
+		this.itemmemo = itemmemo;
 	}
-	public Long getOrd_No() {
-		return ord_No;
+	public Long getOrdno() {
+		return ordno;
 	}
-	public void setOrd_No(Long ord_No) {
-		this.ord_No = ord_No;
+	public void setOrdno(Long ordno) {
+		this.ordno = ordno;
 	}
-	public Integer getProNo() {
-		return proNo;
+	public Integer getProno() {
+		return prono;
 	}
-	public void setProNo(Integer proNo) {
-		this.proNo = proNo;
+	public void setProno(Integer prono) {
+		this.prono = prono;
 	}
+	
 	
 }

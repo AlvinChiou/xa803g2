@@ -56,16 +56,16 @@
 			<td>${orderVO.memno}</td>
 			<td>${orderVO.empno}</td>
 			<td>
-				<FORM method="post" action="<%=request.getContextPath()%>/order/order.do">
+				<FORM method="post" action="<%=request.getContextPath()%>/ORDER/order.do">
 					<input type="submit" value="修改訂單"/>
-					<input type="hidden" name="ordNo" value="${orderVO.ord_No}"/>
+					<input type="hidden" name="ordno" value="${orderVO.ordno}"/>
 					<input type="hidden" name="action" value="getone_For_Update"/>
 				</FORM>
 			</td>
 			<td>
-				<form method="post" action="<%=request.getContextPath()%>/order/order.do">
+				<form method="post" action="<%=request.getContextPath()%>/ORDER/order.do">
 					<input type="submit" value="刪除訂單"/>
-					<input type="hidden" name="ordNo" value="${orderVO.ordno}"/>
+					<input type="hidden" name="ordno" value="${orderVO.ordno}"/>
 					<input type="hidden" name="action" value="delete"/>
 				</form>
 			</td>

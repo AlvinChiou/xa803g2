@@ -33,19 +33,19 @@ public class ProductDAO_JDBC implements ProductDAO_Interface {
 	String userid = "xa803g2";
 	String passwd = "xa803g2";
 	public static DataSource ds = null;
-	private static final String INSERT_STMT = "INSERT INTO Product(proNo, productName, category, price, image_1, image_2, image_3,"
-			+ "quantity, minimumQuantity, status, keyword, description, relatedProducts, priority, discount, score)"
+	private static final String INSERT_STMT = "INSERT INTO Product(prono, productname, category, price, image1, image2, image3,"
+			+ "quantity, minimumquantity, status, keyword, description, relatedproducts, priority, discount, score)"
 			+ "VALUES (PRODUCT_seq.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT proNo, productName, category, price, image_1, image_2, image_3,"
-			+ "quantity, minimumQuantity, status, keyword, description, "
-			+ "relatedProducts, priority, discount, score FROM Product ORDER BY proNo";
-	private static final String GET_ONE_STMT = "SELECT proNo, productName, category, price, image_1, image_2, image_3,"
-			+ "quantity, minimumQuantity, status, keyword, description, "
-			+ "relatedProducts, priority, discount, score FROM Product WHERE proNo = ?";
-	private static final String DELETE = "DELETE FROM Product WHERE proNo = ?";
-	private static final String UPDATE = "UPDATE Product SET proNo = ?, productName = ?, category = ?, price = ?, image_1 = ?,"
-			+ "image_2 = ?, image_3 = ?, quantity = ?, minimumQuantity = ?, status = ?, keyword = ?, description = ?"
-			+ ", relatedProducts = ?, priority = ?, discount = ?, score = ? WHERE proNo = ?";
+	private static final String GET_ALL_STMT = "SELECT prono, productname, category, price, image1, image2, image3,"
+			+ "quantity, minimumquantity, status, keyword, description, "
+			+ "relatedproducts, priority, discount, score FROM Product ORDER BY prono";
+	private static final String GET_ONE_STMT = "SELECT prono, productname, category, price, image1, image2, image3,"
+			+ "quantity, minimumquantity, status, keyword, description, "
+			+ "relatedproducts, priority, discount, score FROM Product WHERE prono = ?";
+	private static final String DELETE = "DELETE FROM Product WHERE prono = ?";
+	private static final String UPDATE = "UPDATE Product SET prono = ?, productname = ?, category = ?, price = ?, image1 = ?,"
+			+ "image2 = ?, image3 = ?, quantity = ?, minimumquantity = ?, status = ?, keyword = ?, description = ?"
+			+ ", relatedproducts = ?, priority = ?, discount = ?, score = ? WHERE prono = ?";
 
 	@Override
 	public int insert(ProductVO productVO) {
@@ -58,14 +58,14 @@ public class ProductDAO_JDBC implements ProductDAO_Interface {
 			String cols[] = { "PRONO" };
 			pstmt = con.prepareStatement(INSERT_STMT, cols);
 
-			pstmt.setString(1, productVO.getProductName());
+			pstmt.setString(1, productVO.getProductname());
 			pstmt.setString(2, productVO.getCategory());
 			pstmt.setInt(3, productVO.getPrice());
-			pstmt.setBytes(4, productVO.getImage_1());
-			pstmt.setBytes(5, productVO.getImage_2());
-			pstmt.setString(6, productVO.getImage_3());
+			pstmt.setBytes(4, productVO.getImage1());
+			pstmt.setBytes(5, productVO.getImage2());
+			pstmt.setString(6, productVO.getImage3());
 			pstmt.setInt(7, productVO.getQuantity());
-			pstmt.setInt(8, productVO.getMinimumQuantity());
+			pstmt.setInt(8, productVO.getMinimumquantity());
 			pstmt.setInt(9, productVO.getStatus());
 			pstmt.setString(10, productVO.getKeyword());
 			pstmt.setString(11, productVO.getDescription());
@@ -119,14 +119,14 @@ public class ProductDAO_JDBC implements ProductDAO_Interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setString(1, productVO.getProductName());
+			pstmt.setString(1, productVO.getProductname());
 			pstmt.setString(2, productVO.getCategory());
 			pstmt.setInt(3, productVO.getPrice());
-			pstmt.setBytes(4, productVO.getImage_1());
-			pstmt.setBytes(5, productVO.getImage_2());
-			pstmt.setString(6, productVO.getImage_3());
+			pstmt.setBytes(4, productVO.getImage1());
+			pstmt.setBytes(5, productVO.getImage2());
+			pstmt.setString(6, productVO.getImage3());
 			pstmt.setInt(7, productVO.getQuantity());
-			pstmt.setInt(8, productVO.getMinimumQuantity());
+			pstmt.setInt(8, productVO.getMinimumquantity());
 			pstmt.setInt(9, productVO.getStatus());
 			pstmt.setString(10, productVO.getKeyword());
 			pstmt.setString(11, productVO.getDescription());
@@ -166,7 +166,7 @@ public class ProductDAO_JDBC implements ProductDAO_Interface {
 	}
 
 	@Override
-	public int delete(Integer proNo) {
+	public int delete(Integer prono) {
 		int updateCount = 0;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -177,7 +177,7 @@ public class ProductDAO_JDBC implements ProductDAO_Interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setInt(1, proNo);
+			pstmt.setInt(1, prono);
 
 			updateCount = pstmt.executeUpdate();
 
@@ -210,7 +210,7 @@ public class ProductDAO_JDBC implements ProductDAO_Interface {
 	}
 
 	@Override
-	public ProductVO findByPrimaryKey(Integer proNo) {
+	public ProductVO findByPrimaryKey(Integer prono) {
 		ProductVO productVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -222,28 +222,28 @@ public class ProductDAO_JDBC implements ProductDAO_Interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setInt(1, proNo);
+			pstmt.setInt(1, prono);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				productVO = new ProductVO();
-				productVO.setProNo(rs.getInt("proNo"));
-				productVO.setProductName(rs.getString("productName"));
+				productVO.setProno(rs.getInt("prono"));
+				productVO.setProductname(rs.getString("productname"));
 				productVO.setCategory(rs.getString("category"));
 				productVO.setPrice(rs.getInt("price"));
-				productVO.setImage_1(rs.getBytes("image_1"));
-				productVO.setImage_2(rs.getBytes("image_2"));
-				productVO.setImage_3(rs.getString("image_3"));
+				productVO.setImage1(rs.getBytes("image1"));
+				productVO.setImage2(rs.getBytes("image2"));
+				productVO.setImage3(rs.getString("image3"));
 				productVO.setQuantity(rs.getInt("quantity"));
-				productVO.setMinimumQuantity(rs.getInt("minimumQuantity"));
+				productVO.setMinimumquantity(rs.getInt("minimumquantity"));
 				productVO.setStatus(rs.getInt("status"));
 				productVO.setKeyword(rs.getString("keyword"));
 				productVO.setDescription(rs.getString("description"));
-				productVO.setRelatedProducts(rs.getString("relatedProducts"));
+				productVO.setRelatedProducts(rs.getString("relatedproducts"));
 				productVO.setPriority(rs.getInt("priority"));
 				productVO.setDiscount(rs.getDouble("discount"));
-				productVO.setScorel(rs.getInt("score"));
+				productVO.setScore(rs.getInt("score"));
 			}
 
 			// Handle any driver errors
@@ -296,22 +296,22 @@ public class ProductDAO_JDBC implements ProductDAO_Interface {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				productVO = new ProductVO();
-				productVO.setProNo(rs.getInt("proNo"));
-				productVO.setProductName(rs.getString("productName"));
+				productVO.setProno(rs.getInt("prono"));
+				productVO.setProductname(rs.getString("productname"));
 				productVO.setCategory(rs.getString("category"));
 				productVO.setPrice(rs.getInt("price"));
-				productVO.setImage_1(rs.getBytes("image_1"));
-				productVO.setImage_2(rs.getBytes("image_2"));
-				productVO.setImage_3(rs.getString("image_3"));
+				productVO.setImage1(rs.getBytes("image1"));
+				productVO.setImage2(rs.getBytes("image2"));
+				productVO.setImage3(rs.getString("image3"));
 				productVO.setQuantity(rs.getInt("quantity"));
-				productVO.setMinimumQuantity(rs.getInt("minimumQuantity"));
+				productVO.setMinimumquantity(rs.getInt("minimumquantity"));
 				productVO.setStatus(rs.getInt("status"));
 				productVO.setKeyword(rs.getString("keyword"));
 				productVO.setDescription(rs.getString("description"));
-				productVO.setRelatedProducts(rs.getString("relatedProducts"));
+				productVO.setRelatedProducts(rs.getString("relatedproducts"));
 				productVO.setPriority(rs.getInt("priority"));
 				productVO.setDiscount(rs.getDouble("discount"));
-				productVO.setScorel(rs.getInt("score"));
+				productVO.setScore(rs.getInt("score"));
 			}
 
 		} catch (ClassNotFoundException e) {
@@ -359,12 +359,12 @@ public class ProductDAO_JDBC implements ProductDAO_Interface {
 		fis.read(buffer); //這行要加
 		fis.close();
 		ProductVO productVO_insert = new ProductVO();		
-		productVO_insert.setProductName("新耐吉斯．成犬火雞肉+田園蔬果【7.5公斤】");
+		productVO_insert.setProductname("新耐吉斯．成犬火雞肉+田園蔬果【7.5公斤】");
 		productVO_insert.setCategory("狗飼料");
 		productVO_insert.setPrice(1060);
-		productVO_insert.setImage_1(buffer);
+		productVO_insert.setImage1(buffer);
 		productVO_insert.setQuantity(100);
-		productVO_insert.setMinimumQuantity(5);
+		productVO_insert.setMinimumquantity(5);
 		// java.util.Date now = new java.util.Date(); //取得現在時間
 		// SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 //		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
@@ -382,7 +382,7 @@ public class ProductDAO_JDBC implements ProductDAO_Interface {
 		productVO_insert.setRelatedProducts(null);
 		productVO_insert.setPriority(1);
 		productVO_insert.setDiscount(1.0);
-		productVO_insert.setScorel(0);
+		productVO_insert.setScore(0);
 		int updateCount_insert = dao.insert(productVO_insert);
 		System.out.println(updateCount_insert);
 		//修改商品
@@ -390,15 +390,15 @@ public class ProductDAO_JDBC implements ProductDAO_Interface {
 		//查詢
 		List<ProductVO> list = dao.getAll();
 		for(ProductVO product : list){
-			System.out.println(product.getProNo()+",");
-			System.out.println(product.getProductName()+",");
+			System.out.println(product.getProno()+",");
+			System.out.println(product.getProductname()+",");
 			System.out.println(product.getCategory()+",");
 			System.out.println(product.getPrice()+",");
-			System.out.println(product.getImage_1()+",");
-			System.out.println(product.getImage_2()+",");
-			System.out.println(product.getImage_3()+",");
+			System.out.println(product.getImage1()+",");
+			System.out.println(product.getImage2()+",");
+			System.out.println(product.getImage3()+",");
 			System.out.println(product.getQuantity()+",");
-			System.out.println(product.getMinimumQuantity()+",");
+			System.out.println(product.getMinimumquantity()+",");
 			System.out.println(product.getStatus()+",");
 			System.out.println(product.getKeyword()+",");
 			System.out.println(product.getDescription()+",");

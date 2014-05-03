@@ -3,15 +3,15 @@ import java.sql.Blob;
 import java.sql.Date;
 
 public class ProductVO implements java.io.Serializable{
-	private Integer proNo;
-	private String productName;
+	private Integer prono;
+	private String productname;
 	private String category;
 	private Integer price;
-	private byte[] image_1;
-	private byte[] image_2;
-	private String image_3;
+	private byte[] image1;
+	private byte[] image2;
+	private String image3;
 	private Integer quantity;
-	private Integer minimumQuantity;
+	private Integer minimumquantity;
 	private Integer status;
 	private String keyword;
 	private String description;
@@ -19,18 +19,17 @@ public class ProductVO implements java.io.Serializable{
 	private Integer priority;
 	private Double discount;
 	private Integer score;
-	
-	public Integer getProNo() {
-		return proNo;
+	public Integer getProno() {
+		return prono;
 	}
-	public void setProNo(Integer proNo) {
-		this.proNo = proNo;
+	public void setProno(Integer prono) {
+		this.prono = prono;
 	}
-	public String getProductName() {
-		return productName;
+	public String getProductname() {
+		return productname;
 	}
-	public void setProductName(String productName) {
-		this.productName = productName;
+	public void setProductname(String productname) {
+		this.productname = productname;
 	}
 	public String getCategory() {
 		return category;
@@ -44,18 +43,35 @@ public class ProductVO implements java.io.Serializable{
 	public void setPrice(Integer price) {
 		this.price = price;
 	}
-
+	public byte[] getImage1() {
+		return image1;
+	}
+	public void setImage1(byte[] image1) {
+		this.image1 = image1;
+	}
+	public byte[] getImage2() {
+		return image2;
+	}
+	public void setImage2(byte[] image2) {
+		this.image2 = image2;
+	}
+	public String getImage3() {
+		return image3;
+	}
+	public void setImage3(String image3) {
+		this.image3 = image3;
+	}
 	public Integer getQuantity() {
 		return quantity;
 	}
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
-	public Integer getMinimumQuantity() {
-		return minimumQuantity;
+	public Integer getMinimumquantity() {
+		return minimumquantity;
 	}
-	public void setMinimumQuantity(Integer minimumQuantity) {
-		this.minimumQuantity = minimumQuantity;
+	public void setMinimumquantity(Integer minimumquantity) {
+		this.minimumquantity = minimumquantity;
 	}
 	public Integer getStatus() {
 		return status;
@@ -65,27 +81,6 @@ public class ProductVO implements java.io.Serializable{
 	}
 	public String getKeyword() {
 		return keyword;
-	}
-	public byte[] getImage_1() {
-		return image_1;
-	}
-	public void setImage_1(byte[] image_1) {
-		this.image_1 = image_1;
-	}
-	public byte[] getImage_2() {
-		return image_2;
-	}
-	public void setImage_2(byte[] image_2) {
-		this.image_2 = image_2;
-	}
-	public String getImage_3() {
-		return image_3;
-	}
-	public void setImage_3(String image_3) {
-		this.image_3 = image_3;
-	}
-	public void setScore(Integer score) {
-		this.score = score;
 	}
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
@@ -117,8 +112,10 @@ public class ProductVO implements java.io.Serializable{
 	public Integer getScore() {
 		return score;
 	}
-	public void setScorel(Integer score) {
+	public void setScore(Integer score) {
 		this.score = score;
 	}
+	
+	
 	
 }
