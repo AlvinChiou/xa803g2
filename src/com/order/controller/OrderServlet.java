@@ -113,14 +113,46 @@ public class OrderServlet extends HttpServlet {
 			
 			try{
 				//接收請求參數，輸入錯誤格式處裡
-				Timestamp ordergotime = java.sql.Timestamp.valueOf(request.getParameter("ordergotime").trim());
-				Timestamp orderarrtime = java.sql.Timestamp.valueOf(request.getParameter("orderarrtime").trim());
-				Timestamp orderdeltime = java.sql.Timestamp.valueOf(request.getParameter("orderdeltime").trim());
-				Integer orderstate = new Integer(request.getParameter("orderstate"));
+				String orderno = new String(request.getParameter("orderno").trim());
+				Timestamp ordertime = java.sql.Timestamp.valueOf(request.getParameter("ordertime").trim());
+				String orderaddress = new String(request.getParameter("orderaddress").trim());
+				String ordertel = new String(request.getParameter("ordertel").trim());	
+				
+				
+				
+				Integer orderstate = new Integer(request.getParameter("orderstate").trim());
+				String memno = new String(request.getParameter("memno").trim());
 				Integer empno = new Integer(request.getParameter("empno").trim());
 				
+				java.sql.Timestamp ordergotime = null;
+				try{
+					ordergotime = java.sql.Timestamp.valueOf(request.getParameter("ordergotime").trim());
+				}catch(IllegalArgumentException e){
+					ordergotime = new java.sql.Timestamp(System.currentTimeMillis());
+					errorMsgs.add("請輸入正確的出貨日期時間:yyyy-MM-dd hh:mm24:ss");
+				}
+				
+				java.sql.Timestamp orderarrtime = null;
+				try{
+					orderarrtime = java.sql.Timestamp.valueOf(request.getParameter("orderarrtime").trim());
+				}catch(IllegalArgumentException e){
+					orderarrtime = new java.sql.Timestamp(System.currentTimeMillis());
+					errorMsgs.add("請輸入正確的送貨抵達日期時間:yyyy-MM-dd hh:mm24:ss");
+				}
+				//Not Finish.
+				java.sql.Timestamp orderdeltime = null;
+				try{
+					orderdeltime = java.sql.Timestamp.valueOf(request.getParameter("orderdeltime").trim());
+				}catch(IllegalArgumentException e){
+					orderdeltime = new java.sql.Timestamp(System.currentTimeMillis());
+					errorMsgs.add("請輸入正確的銷單日期時間:yyyy-MM-dd hh:mm24:ss");
+				}
+				
+				/***************************其他可能的錯誤處理*************************************/
 			}catch(Exception e){
-				System.out.println();
+				errorMsgs.add("修改資料失敗:"+e.getMessage());
+				RequestDispatcher failureView = request.getRequestDispatcher("/ORDER/updateOrder.jsp");
+				failureView.forward(request, response);
 			}
 		}
 	}
