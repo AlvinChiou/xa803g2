@@ -49,9 +49,9 @@
 			<td>${orderVO.ordtime}</td>
 			<td>${orderVO.ordaddr}</td>
 			<td>${orderVO.ordtel}</td>
-			<td>${orderVO.ordgotime}</td>
-			<td>${orderVO.ordarrtime}</td>
-			<td>${orderVO.orddeltime}</td>
+			<td>${(orderVO.ordgotime)==null?"未出貨":orderVO.ordgotime}</td>
+			<td>${(orderVO.ordarrtime)==null?"未送達":orderVO.ordarrtime}</td>
+			<td>${(orderVO.orddeltime)==null?"未銷單":orderVO.orddeltime}</td>
 			<td>${(orderVO.ordstate)==0?"未出貨":"已出貨"}</td>
 			<td>${orderVO.memno}</td>
 			<td>${orderVO.empno}</td>

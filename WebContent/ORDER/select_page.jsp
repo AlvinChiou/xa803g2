@@ -24,7 +24,7 @@
 	<li><a href="listAllOrder.jsp">List</a>all Orders.</li><br><br>
 	<li>
 		<form method="post" action="order.do">
-			<b>請輸入訂單編號(Ex:201404011001):</b>
+			<b>請輸入訂單編號(例如:201404011001):</b>
 			<input type="text" name="ordno">
 			<input type="submit" value="送出查詢">
 			<input type="hidden" name="action" value="getOne_for_Display">
@@ -32,7 +32,7 @@
 	</li>
 	<jsp:useBean id="orderService" scope="page" class="com.order.model.OrderService"/>
 	<li>
-		<form mehtod="post" action="order.do">
+		<form method="post" action="order.do">
 			<b>選擇訂單編號:</b>
 			<select name="ordno">
 				<c:forEach var="orderVO" items="${orderService.all}">

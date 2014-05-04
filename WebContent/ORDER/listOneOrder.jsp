@@ -30,9 +30,9 @@ OrderVO orderVO = (OrderVO) request.getAttribute("orderVO");
 		<td><%=orderVO.getOrdtime()%></td>
 		<td><%=orderVO.getOrdaddr()%></td>
 		<td><%=orderVO.getOrdtel()%></td>
-		<td><%=orderVO.getOrdgotime()%></td>
-		<td><%=orderVO.getOrdarrtime()%></td>
-		<td><%=orderVO.getOrddeltime()%></td>
+		<td><%=(orderVO.getOrdgotime()==null?"未出貨":orderVO.getOrdgotime())%></td>
+		<td><%=(orderVO.getOrdarrtime()==null?"未送達":orderVO.getOrdarrtime())%></td>
+		<td><%=(orderVO.getOrddeltime()==null?"未銷單":orderVO.getOrddeltime())%></td>
 		<td><%=orderVO.getOrdstate()%></td>
 		<td><%=orderVO.getMemno()%></td>
 		<td><%=orderVO.getEmpno()%></td>

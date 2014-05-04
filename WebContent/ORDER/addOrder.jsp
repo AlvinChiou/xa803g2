@@ -28,15 +28,15 @@
 	
 	<form action="order.do" method="post" name="from1">
 		<div class="input-control text">
-			<label>配送地址 <input name="orderaddress">
-			</label> <label>連絡電話 <input name="ordertel">
+			<label>配送地址 <input name="ordaddr">
+			</label> <label>連絡電話 <input name="ordtel">
 			</label>
 		</div>
 		<div class="input-control select">
 			
 			<label>訂單狀態 
 			
-			<select name="orderstate">
+			<select name="ordstate">
 					<option value="0">未出貨</option>
 					<option value="1">已出貨</option>
 			</select>
@@ -44,7 +44,7 @@
 			</label>
 		</div>
 		<div class="input-control text">
-			<label>會員帳號 <input name="ordermemno">
+			<label>會員帳號 <input name="memno">
 			</label> <label>受理員工編號 <input name="empno">
 			</label>
 		</div>

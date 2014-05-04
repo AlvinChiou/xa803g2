@@ -25,7 +25,7 @@ public class OrderServlet extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("BIG5");
+		request.setCharacterEncoding("UTF-8");
 		String action = request.getParameter("action");
 		
 		if("getOne_For_Display".equals(action)){
@@ -46,9 +46,9 @@ public class OrderServlet extends HttpServlet {
 					return; //因發生錯誤將錯誤訊息送到表單，並中斷程式
 				}
 				
-				Integer ordno = null;
+				Long ordno = null;
 				try{
-					ordno = new Integer(str);
+					ordno = new Long(str);
 				}catch(Exception e){
 					errorMsgs.add("訂單編號必須為數字");
 				}
@@ -113,46 +113,151 @@ public class OrderServlet extends HttpServlet {
 			
 			try{
 				//接收請求參數，輸入錯誤格式處裡
-				String orderno = new String(request.getParameter("orderno").trim());
-				Timestamp ordertime = java.sql.Timestamp.valueOf(request.getParameter("ordertime").trim());
-				String orderaddress = new String(request.getParameter("orderaddress").trim());
-				String ordertel = new String(request.getParameter("ordertel").trim());	
-				
-				
-				
-				Integer orderstate = new Integer(request.getParameter("orderstate").trim());
+				String ordno = new String(request.getParameter("ordno").trim());
+				Timestamp ordtime = java.sql.Timestamp.valueOf(request.getParameter("ordtime").trim());
+				String ordaddr = new String(request.getParameter("ordaddr").trim());
+				String ordtel = new String(request.getParameter("ordtel").trim());	
+				Integer ordstate = new Integer(request.getParameter("ordstate").trim());
 				String memno = new String(request.getParameter("memno").trim());
 				Integer empno = new Integer(request.getParameter("empno").trim());
 				
-				java.sql.Timestamp ordergotime = null;
+				java.sql.Timestamp ordgotime = null;
 				try{
-					ordergotime = java.sql.Timestamp.valueOf(request.getParameter("ordergotime").trim());
+					ordgotime = java.sql.Timestamp.valueOf(request.getParameter("ordgotime").trim());
 				}catch(IllegalArgumentException e){
-					ordergotime = new java.sql.Timestamp(System.currentTimeMillis());
+					ordgotime = new java.sql.Timestamp(System.currentTimeMillis());
 					errorMsgs.add("請輸入正確的出貨日期時間:yyyy-MM-dd hh:mm24:ss");
 				}
 				
-				java.sql.Timestamp orderarrtime = null;
+				java.sql.Timestamp ordarrtime = null;
 				try{
-					orderarrtime = java.sql.Timestamp.valueOf(request.getParameter("orderarrtime").trim());
+					ordarrtime = java.sql.Timestamp.valueOf(request.getParameter("ordarrtime").trim());
 				}catch(IllegalArgumentException e){
-					orderarrtime = new java.sql.Timestamp(System.currentTimeMillis());
+					ordarrtime = new java.sql.Timestamp(System.currentTimeMillis());
 					errorMsgs.add("請輸入正確的送貨抵達日期時間:yyyy-MM-dd hh:mm24:ss");
 				}
-				//Not Finish.
-				java.sql.Timestamp orderdeltime = null;
+			
+				java.sql.Timestamp orddeltime = null;
 				try{
-					orderdeltime = java.sql.Timestamp.valueOf(request.getParameter("orderdeltime").trim());
+					orddeltime = java.sql.Timestamp.valueOf(request.getParameter("orddeltime").trim());
 				}catch(IllegalArgumentException e){
-					orderdeltime = new java.sql.Timestamp(System.currentTimeMillis());
+					orddeltime = new java.sql.Timestamp(System.currentTimeMillis());
 					errorMsgs.add("請輸入正確的銷單日期時間:yyyy-MM-dd hh:mm24:ss");
 				}
 				
+				OrderVO orderVO = new OrderVO();
+				orderVO.setOrdno(ordno);
+				orderVO.setOrdtime(ordtime);
+				orderVO.setOrdaddr(ordaddr);
+				orderVO.setOrdtel(ordtel);
+				orderVO.setOrdgotime(ordgotime);
+				orderVO.setOrdarrtime(ordarrtime);
+				orderVO.setOrddeltime(orddeltime);
+				orderVO.setOrdstate(ordstate);
+				orderVO.setMemno(memno);
+				orderVO.setEmpno(empno);
+				
+				if(!errorMsgs.isEmpty()){
+					request.setAttribute("orderVO", orderVO);
+					RequestDispatcher failureView = request.getRequestDispatcher("/ORDER/updateOrder.jsp");
+					failureView.forward(request, response);
+					return;
+				}
+				//開始修改資料
+				OrderService ordSvc = new OrderService();
+				orderVO = ordSvc.updateOrder(ordno, ordtime, ordaddr, ordtel, ordgotime, ordarrtime, orddeltime, ordstate, memno, empno);
+				
+				//修改完成轉交(Send the Success view)
+				request.setAttribute("orderVO", orderVO);// 資料庫update成功後,正確的的empVO物件,存入request
+				String url = "/ORDER/listOneOrder.jsp";
+				RequestDispatcher successView = request.getRequestDispatcher(url);
+				successView.forward(request, response);
+				
 				/***************************其他可能的錯誤處理*************************************/
+				
 			}catch(Exception e){
 				errorMsgs.add("修改資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = request.getRequestDispatcher("/ORDER/updateOrder.jsp");
 				failureView.forward(request, response);
+			}
+		}
+		if("insert".equals(action)){
+			List<String> errorMsgs = new LinkedList<String>();
+			request.setAttribute("errorMsgs", errorMsgs);
+			
+			try{
+				String ordaddr = request.getParameter("ordaddr").trim();
+				String ordtel = request.getParameter("ordtel").trim();
+				Integer ordstate = new Integer(request.getParameter("ordstate"));
+				//String memno = request.getParameter("memno").trim();
+				//Integer empno = new Integer(request.getParameter("empno").trim());
+				Timestamp ordgotime = null;
+				Timestamp ordarrtime = null;
+				Timestamp orddeltime = null;
+				Integer memno_int = null;
+				String memno = null;
+				try{
+					memno_int = new Integer(request.getParameter("memno").trim());
+					memno = memno_int.toString();
+				}catch(NumberFormatException e){
+					errorMsgs.add("會員編號須為數字");
+				}
+				
+				Integer empno = null;
+				try{
+					empno = new Integer(request.getParameter("empno").trim());
+				}catch(NumberFormatException e){
+					errorMsgs.add("員工編號須為數字");
+				}
+				
+				OrderVO orderVO = new OrderVO();
+				orderVO.setOrdaddr(ordaddr);
+				orderVO.setOrdtel(ordtel);
+				orderVO.setOrdstate(ordstate);
+				orderVO.setMemno(memno);
+				orderVO.setEmpno(empno);
+				
+				if(!errorMsgs.isEmpty()){
+					request.setAttribute("OrderVO", orderVO);
+					RequestDispatcher failureView = request.getRequestDispatcher("/ORDER/addOrder.jsp");
+					failureView.forward(request, response);
+					return;
+				}
+				//開始新增資料
+				OrderService ordSvc = new OrderService();
+				orderVO = ordSvc.addOrder(ordaddr, ordtel, ordgotime, ordarrtime, orddeltime, ordstate, memno, empno);
+				//新增完畢轉交(Send the Success view)
+				String url = "/ORDER/listAllOrder.jsp";
+				RequestDispatcher successView = request.getRequestDispatcher(url);
+				successView.forward(request, response);
+			}catch(Exception e){
+				errorMsgs.add(e.getMessage());
+				RequestDispatcher failureView = request.getRequestDispatcher("/ORDER/addOrder.jsp");
+				failureView.forward(request, response);
+			}
+		}
+		if("delete".equals(action)){ //來自listAllOrder.jsp之參數
+			List<String> errorMsgs = new LinkedList<String>();
+			request.setAttribute("errorMsgs", errorMsgs);
+			
+			try{
+				//接收請求參數
+				String ordno = new String(request.getParameter("ordno"));
+				
+				//開始刪除資料
+				OrderService ordSvc = new OrderService();
+				ordSvc.deleteOrder(ordno);
+				
+				//刪除完畢轉交成功畫面
+				String url = "/ORDER/listAllOrder.jsp";
+				RequestDispatcher successView = request.getRequestDispatcher(url);
+				successView.forward(request, response);
+				
+			}catch(Exception e){
+				errorMsgs.add("刪除訂單失敗"+e.getMessage());
+				RequestDispatcher failureView = request.getRequestDispatcher("/ORDER/listAllOrder.jsp");
+				failureView.forward(request, response);
+				
 			}
 		}
 	}
