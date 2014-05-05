@@ -1,83 +1,83 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="BIG5"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.order.model.*"%>
 <%
 	OrderVO orderVO = (OrderVO) request.getAttribute("orderVO");
- %>    
-<!DOCTYPE html>
+%>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=BIG5">
-<link rel="stylesheet" href="MetroUI/css/metro-bootstrap.css">
-<script src="MetroUI/js/jquery/jquery.min.js"></script>
-<script src="MetroUI/js/jquery/jquery.widget.min.js"></script>
-<script src="MetroUI/js/metro/metro.min.js"></script>
-<script>	
-		document.getElementsByClassName('lock').disabled = true;
-		document.getElementsByClassName('unlock').disabled = false;	
-</script>
-<title>╫s©Х╜qЁФ</title>
+<title>Г╥╗Х╪╞Х╗┌Е√╝</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
-<body class="metro">
-
-<c:if test="${not empty errorMsgs}">
-	<font color='red'>╫п╜в╔©╔H╓U©Ы╩~:
-		<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li>${message}</li>
-			</c:forEach>
-		</ul>
-	</font>
-</c:if>
-	<form name="from1" method="post" action="order.do">
-		<label>
-		╜qЁФ╫s╦╧
-		<input name="ordno" disabled="disabled" value="<%=orderVO.getOrdno()%>"/>
-		</label>
-		<label>
-		╜qай╝и╤║
-		<input name="ordtime" disabled="disabled" value="<%=orderVO.getOrdtime()%>"/>
-		</label>
-		<label>
-		╟t╟e╕a╖}
-		<input name="ordaddr" disabled="disabled" value="<%=orderVO.getOrdaddr()%>"/>
-		</label>
-		<label>
-		╥|╜Ш╧q╦э
-		<input name="ordaddr" disabled="disabled" value="<%=orderVO.getOrdtel()%>"/>
-		</label>
-		<label>
-		╔XЁf╝и╤║
-		<input name="ordgotime" value="<%=orderVO.getOrdgotime()%>"/>
-		</label>
-		<label>
-		╟e╧F╝и╤║
-		<input name="ordarrtime" value="<%=(orderVO.getOrdarrtime()==null)?"╔╪╣n©Щ╝и╤║":orderVO.getOrdarrtime()%>" class="<%=(orderVO.getOrdgotime()==null?"lock":"unlock")%>"/>
-		</label>
-		<label>
-		╬PЁФ╝и╤║
-		<input name="orddeltime"value="<%=(orderVO.getOrddeltime()==null)?"╔╪╣n©Щ╝и╤║":orderVO.getOrddeltime()%>" class="<%=(orderVO.getOrdarrtime()==null)?"lock":"unlock"%>"/>
-		</label>
-		<label>
-		╜qЁФ╙╛╨A
-		<jsp:useBean id="orderService" scope="page" class="com.order.model.OrderService"/>
-		<select name="ordstate">
-			<c:forEach var="orderVO" items="${orderService.all}">
-			<option value="${orderVO.ordstate}" ${(orderVO.ordstate==0)?'selected':'selected'}>${(orderVO.ordstate==0)?"╔╪╔XЁf":"╓w╔XЁf"}</option>
-			</c:forEach>
-		</select>
-		</label>
-		<label>
-		╥|╜Ш╫s╦╧
-		<input name="memno" disabled="disabled" value="<%=orderVO.getMemno()%>">
-		</label>
-		<label>
-		╘с©Л╓H╫s╦╧
-		<input name="empno" value="<%=(orderVO.getEmpno()==null)?"":orderVO.getEmpno()%>">
-		</label>
-		<input name="action" type="hidden" value="update"> 
-		<input name="submit" value="╖С╥s╜qЁФ" type="submit">
+<body>
+	<div bgcolor="yellow" align="center">Г╥╗Х╪╞Х╗┌Е√╝</div>
+	<h3>ХЁ┤Ф√≥Д©╝Ф■╧:</h3>
+	<c:if test="${not empty errorMsgs}">
+		<font color='red'>Х╚▀Д©╝Ф╜ёД╩╔Д╦▀И▄╞Х╙╓
+			<ul>
+				<c:forEach var="message" items="${errorMsgs}">
+					<li>${messages}</li>
+				</c:forEach>
+			</ul>
+		</font>
+	</c:if>
+	<form method="post" action="order.do">
+		<table border='0' cellpadding='5'>
+			<tr>
+				<td>Х╗┌Е√╝Г╥╗Х≥÷:</td>
+				<td><%=orderVO.getOrdno()%><input type="hidden" name="ordno"
+					size="45" value="<%=orderVO.getOrdno()%>"></td>
+			</tr>
+			<tr>
+				<td>Х╗┌ХЁ╪Ф≥┌И√⌠:</td>
+				<td><%=orderVO.getOrdtime()%><input type="hidden"
+					name="ordtime" size="45" value="<%=orderVO.getOrdtime()%>"></td>
+			</tr>
+			<tr>
+				<td>И┘█И─│Е°╟Е²─:</td>
+				<td><%=orderVO.getOrdaddr()%><input type="hidden"
+					name="ordaddr" size="45" value="<%=orderVO.getOrdaddr()%>"></td>
+			</tr>
+			<tr>
+				<td>Х╡╥Ф√╧И⌡╩Х╘╠:</td>
+				<td><%=orderVO.getOrdtel()%><input type="hidden" name="ordtel"
+					size="45" value="<%=orderVO.getOrdtel()%>"></td>
+			</tr>
+			<tr>
+				<td>Г≥╪Х╡╗Ф≥┌И√⌠:</td>
+				<td><input type="text" name="ordgotime" size="45"
+					value="<%=orderVO.getOrdgotime()%>"></td>
+			</tr>
+			<tr>
+				<td>Е┬╟Х╡╗Ф≥┌И√⌠:</td>
+				<td><input type="text" name="ordarrtime" size="45"
+					value="<%=orderVO.getOrdarrtime()%>" ${(orderVO.ordgotime==null)?'disabled':''}></td>
+			</tr>
+			<tr>
+				<td>И┼╥Е√╝Ф≥┌И√⌠:</td>
+				<td><input type="text" name="orddeltime" size="45"
+					value="<%=orderVO.getOrddeltime()%>" ${(orderVO.ordarrtime==null)?'disabled':''}></td>
+			</tr>	
+			<tr>
+				<td>Х╗┌Е√╝Г▀─Ф┘▀:</td>
+				<td><input type="radio" name="ordstate" value="0" ${(orderVO.ordgotime==null)?'checked':''}>Ф°╙Е┤╨Х╡╗
+					<input type="radio" name="ordstate" value="1" ${(orderVO.ordgotime!=null)?'checked':''}>Е╥╡Е┤╨Х╡╗</td>
+			</tr>
+			<tr>
+				<td>Х╡╥Ф√╧Е╦ЁХ≥÷:</td>
+				<td><%=orderVO.getMemno()%><input type="hidden" name="memno"
+					size="45" value="<%=orderVO.getMemno()%>"></td>
+			</tr>
+			<tr>
+				<td>Ф┴©Х╬╕Д╨╨Г╥╗Х≥÷:</td>
+				<td><input type="text" name="empno" size="45"
+					value="<%=orderVO.getEmpno()%>" ${(orderVO.empno!=0)?'readonly':''}></td>
+			</tr>
+		</table>
+		<input type="hidden" name="action" value="update"> <input
+			type="hidden" name="ordno" value="<%=orderVO.getOrdno()%>"> <input
+			type="submit" value="Ф⌡╢Ф√╟Х╗┌Е√╝ХЁ┤Ф√≥">
 	</form>
 </body>
 </html>
