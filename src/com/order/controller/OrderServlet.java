@@ -111,7 +111,7 @@ public class OrderServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<String>();
 			request.setAttribute("errorMsgs", errorMsgs);
 			
-//			try{
+			try{
 				//接收請求參數，輸入錯誤格式處裡
 				String ordno = new String(request.getParameter("ordno").trim());
 				Timestamp ordtime = java.sql.Timestamp.valueOf(request.getParameter("ordtime").trim());
@@ -175,11 +175,11 @@ public class OrderServlet extends HttpServlet {
 				
 				/***************************其他可能的錯誤處理*************************************/
 				
-//			}catch(Exception e){
-//				errorMsgs.add("修改資料失敗:"+e.getMessage());
-//				RequestDispatcher failureView = request.getRequestDispatcher("/ORDER/updateOrder.jsp");
-//				failureView.forward(request, response);
-//			}
+			}catch(Exception e){
+				errorMsgs.add("修改資料失敗:"+e.getMessage());
+				RequestDispatcher failureView = request.getRequestDispatcher("/ORDER/updateOrder.jsp");
+				failureView.forward(request, response);
+			}
 		}
 		if("insert".equals(action)){
 			List<String> errorMsgs = new LinkedList<String>();

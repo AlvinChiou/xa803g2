@@ -23,6 +23,7 @@ import javax.naming.Context;
 import org.apache.catalina.tribes.transport.DataSender;
 import org.apache.jasper.tagplugins.jstl.core.Catch;
 
+import com.order.model.OrderVO;
 import com.sun.xml.internal.ws.wsdl.writer.document.Port;
 /*
  * Use Table: PRODUCT
@@ -43,7 +44,7 @@ public class ProductDAO_JDBC implements ProductDAO_Interface {
 			+ "quantity, minimumquantity, status, keyword, description, "
 			+ "relatedproducts, priority, discount, score FROM Product WHERE prono = ?";
 	private static final String DELETE = "DELETE FROM Product WHERE prono = ?";
-	private static final String UPDATE = "UPDATE Product SET prono = ?, productname = ?, category = ?, price = ?, image1 = ?,"
+	private static final String UPDATE = "UPDATE Product SET productname = ?, category = ?, price = ?, image1 = ?,"
 			+ "image2 = ?, image3 = ?, quantity = ?, minimumquantity = ?, status = ?, keyword = ?, description = ?"
 			+ ", relatedproducts = ?, priority = ?, discount = ?, score = ? WHERE prono = ?";
 
@@ -134,7 +135,7 @@ public class ProductDAO_JDBC implements ProductDAO_Interface {
 			pstmt.setInt(13, productVO.getPriority());
 			pstmt.setDouble(14, productVO.getDiscount());
 			pstmt.setInt(15, productVO.getScore());
-
+			pstmt.setInt(16, productVO.getProno());
 			updateCount = pstmt.executeUpdate();
 
 			// Handle any driver errors
@@ -312,6 +313,7 @@ public class ProductDAO_JDBC implements ProductDAO_Interface {
 				productVO.setPriority(rs.getInt("priority"));
 				productVO.setDiscount(rs.getDouble("discount"));
 				productVO.setScore(rs.getInt("score"));
+				list.add(productVO);
 			}
 
 		} catch (ClassNotFoundException e) {
@@ -346,48 +348,81 @@ public class ProductDAO_JDBC implements ProductDAO_Interface {
 		return list;
 	}
 
-	public static void main(String[] args) throws Exception{
+	public static void main(String[] args){
 		ProductDAO_JDBC dao = new ProductDAO_JDBC();
 		//新增商品
 //		File insertFile = new File("D:\\Files\\455.jpg");      //new a file 
 //		FileInputStream fis = new FileInputStream(insertFile);
 		//以下三行將圖片轉換成byte[]陣列 
 		//最後寫入Database
-		FileInputStream fis = new FileInputStream("D:\\455.jpg");
-		int len = fis.available(); 
-		byte[] buffer = new byte[len];
-		fis.read(buffer); //這行要加
-		fis.close();
-		ProductVO productVO_insert = new ProductVO();		
-		productVO_insert.setProductname("新耐吉斯．成犬火雞肉+田園蔬果【7.5公斤】");
-		productVO_insert.setCategory("狗飼料");
-		productVO_insert.setPrice(1060);
-		productVO_insert.setImage1(buffer);
-		productVO_insert.setQuantity(100);
-		productVO_insert.setMinimumquantity(5);
-		// java.util.Date now = new java.util.Date(); //取得現在時間
-		// SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-//		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
-//		sd.setTimeZone(TimeZone.getTimeZone("GMT"));// 設定時區為格林威治 GMT 時區
-		// String sGMT = sd.format(now);
-//		String sGMT = "2014-06-01";
-//		java.sql.Date availableDate = Date.valueOf(sGMT);// 要轉換成 java.sql.Date
-//															// 的物件才可以寫入資料庫
-//															// Timestamp
-//		productVO_insert.setDateAvailable(availableDate);
-		productVO_insert.setStatus(0);
-		productVO_insert.setKeyword("狗飼料, 動物食品");
-		productVO_insert
-				.setDescription("添加大量的田園蔬果及鮮肉，美味的口感，滿足挑剔的胃口低敏配方，不含玉米、大豆、小麥、大豆…容易引起食物過敏的食材讓狗狗減少搔癢落毛困擾，讓毛髮更加柔柔亮亮喲");
-		productVO_insert.setRelatedProducts(null);
-		productVO_insert.setPriority(1);
-		productVO_insert.setDiscount(1.0);
-		productVO_insert.setScore(0);
-		int updateCount_insert = dao.insert(productVO_insert);
-		System.out.println(updateCount_insert);
+//		FileInputStream fis = new FileInputStream("D:\\455.jpg");
+//		int len = fis.available(); 
+//		byte[] buffer = new byte[len];
+//		fis.read(buffer); //這行要加
+//		fis.close();
+//		ProductVO productVO_insert = new ProductVO();		
+//		productVO_insert.setProductname("新耐吉斯．成犬火雞肉+田園蔬果【7.5公斤】");
+//		productVO_insert.setCategory("狗飼料");
+//		productVO_insert.setPrice(1060);
+//		productVO_insert.setImage1(buffer);
+//		productVO_insert.setQuantity(100);
+//		productVO_insert.setMinimumquantity(5);
+//		productVO_insert.setStatus(0);
+//		productVO_insert.setKeyword("狗飼料, 動物食品");
+//		productVO_insert
+//				.setDescription("添加大量的田園蔬果及鮮肉，美味的口感，滿足挑剔的胃口低敏配方，不含玉米、大豆、小麥、大豆…容易引起食物過敏的食材讓狗狗減少搔癢落毛困擾，讓毛髮更加柔柔亮亮喲");
+//		productVO_insert.setRelatedProducts(null);
+//		productVO_insert.setPriority(1);
+//		productVO_insert.setDiscount(1.0);
+//		productVO_insert.setScore(0);
+//		int updateCount_insert = dao.insert(productVO_insert);
+//		System.out.println(updateCount_insert);
+		
 		//修改商品
+//		ProductVO productVO_UPDATE = new ProductVO();
+//		productVO_UPDATE.setProductname("新耐吉斯．成犬火雞肉+田園蔬果【7.5公斤】");
+//		productVO_UPDATE.setCategory("狗飼料");
+//		productVO_UPDATE.setPrice(1500);
+//		productVO_UPDATE.setImage1(buffer);
+//		productVO_UPDATE.setQuantity(200);
+//		productVO_UPDATE.setMinimumquantity(3);
+//		productVO_UPDATE.setStatus(1);
+//		productVO_UPDATE.setKeyword("狗飼料, 動物食品, 特價");
+//		productVO_UPDATE.setDescription("添加大量的田園蔬果及鮮肉，美味的口感，滿足挑剔的胃口低敏配方，不含玉米、大豆、小麥、大豆…容易引起食物過敏的食材讓狗狗減少搔癢落毛困擾，讓毛髮更加柔柔亮亮喲");
+//		productVO_UPDATE.setRelatedProducts(null);
+//		productVO_UPDATE.setPriority(2);
+//		productVO_UPDATE.setDiscount(0.9);
+//		productVO_UPDATE.setScore(1000);
+//		productVO_UPDATE.setProno(5001);
+//		int updateCount_update = dao.update(productVO_UPDATE);
+//		System.out.println(updateCount_update);
 		//刪除
+//		ProductVO productVO_DELETE = new ProductVO();
+//		int updateCount_delete = dao.delete(5001);
+//		System.out.println("成功刪除"+updateCount_delete+"筆資料!");
+		
 		//查詢
+//		ProductVO productVO_SELECT_ONE = dao.findByPrimaryKey(21);
+//		System.out.println(productVO_SELECT_ONE.getProno());
+//		System.out.println(productVO_SELECT_ONE.getProductname());
+//		System.out.println(productVO_SELECT_ONE.getCategory());
+//		System.out.println(productVO_SELECT_ONE.getPrice());
+//		System.out.println(productVO_SELECT_ONE.getImage1());
+//		System.out.println(productVO_SELECT_ONE.getImage2());
+//		System.out.println(productVO_SELECT_ONE.getImage3());
+//		System.out.println(productVO_SELECT_ONE.getQuantity());
+//		System.out.println(productVO_SELECT_ONE.getMinimumquantity());
+//		System.out.println(productVO_SELECT_ONE.getStatus());
+//		System.out.println(productVO_SELECT_ONE.getKeyword());
+//		System.out.println(productVO_SELECT_ONE.getDescription());
+//		System.out.println(productVO_SELECT_ONE.getRelatedProducts());
+//		System.out.println(productVO_SELECT_ONE.getPriority());
+//		System.out.println(productVO_SELECT_ONE.getDiscount());
+//		System.out.println(productVO_SELECT_ONE.getScore());
+//		System.out.println("================================");
+		
+		//ProductVO productVO_SELECT_ALL = new ProductVO();
+		System.out.println("================================");
 		List<ProductVO> list = dao.getAll();
 		for(ProductVO product : list){
 			System.out.println(product.getProno()+",");
@@ -405,9 +440,8 @@ public class ProductDAO_JDBC implements ProductDAO_Interface {
 			System.out.println(product.getRelatedProducts()+",");
 			System.out.println(product.getPriority()+",");
 			System.out.println(product.getDiscount()+",");
-			System.out.println(product.getScore()+",");
-			System.out.println(product+",");
-			System.out.println();
+			System.out.println(product.getScore()+",");			
+			System.out.println("==============================");
 		}
 		
 	}
