@@ -15,6 +15,6 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="D:/SL314_課程中分享/17_※JSTL(webapps)/SL314_JSTL_SQL/WEB-INF/lib/jstl.jar"/>
 	<classpathentry kind="lib" path="D:/SL314_課程中分享/17_※JSTL(webapps)/SL314_JSTL_SQL/WEB-INF/lib/standard.jar"/>
-	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.53/lib/ojdbc6.jar"/>
+	<classpathentry kind="lib" path="D:/apache-tomcat/lib/ojdbc6.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
