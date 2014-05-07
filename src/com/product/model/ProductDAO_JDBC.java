@@ -30,7 +30,7 @@ import com.sun.xml.internal.ws.wsdl.writer.document.Port;
  **/
 public class ProductDAO_JDBC implements ProductDAO_Interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+	String url = "jdbc:oracle:thin:@10.120.38.1:1521:orcl";
 	String userid = "xa803g2";
 	String passwd = "xa803g2";
 	public static DataSource ds = null;
@@ -177,9 +177,7 @@ public class ProductDAO_JDBC implements ProductDAO_Interface {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(DELETE);
-
 			pstmt.setInt(1, prono);
-
 			updateCount = pstmt.executeUpdate();
 
 			// Handle any driver errors
@@ -286,7 +284,6 @@ public class ProductDAO_JDBC implements ProductDAO_Interface {
 	public List<ProductVO> getAll() {
 		List<ProductVO> list = new ArrayList<ProductVO>();
 		ProductVO productVO = null;
-
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

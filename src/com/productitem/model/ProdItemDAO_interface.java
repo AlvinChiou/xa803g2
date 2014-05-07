@@ -5,9 +5,9 @@ import java.util.List;
 import com.order.model.OrderVO;
 
 public interface ProdItemDAO_interface {
-	public int insert(ProdItemVO prodItemVO);
-	public int update(ProdItemVO prodItemVO);
-	public int delete(Integer itemno);
+	public void insert(ProdItemVO prodItemVO);
+	public void update(ProdItemVO prodItemVO);
+	public void delete(Integer itemno);
 	public ProdItemVO findByPrimaryKey(Integer itemno);
 	public List<ProdItemVO> getAll();
 }

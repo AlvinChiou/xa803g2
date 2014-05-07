@@ -17,7 +17,7 @@
 		<font color='red'>請修正以下錯誤
 			<ul>
 				<c:forEach var="message" items="${errorMsgs}">
-					<li>${messages}</li>
+					<li>${message}</li>
 				</c:forEach>
 			</ul>
 		</font>
@@ -52,12 +52,18 @@
 			<tr>
 				<td>到貨時間:</td>
 				<td><input type="text" name="ordarrtime" size="45"
-					value="<%=orderVO.getOrdarrtime()%>" ${(orderVO.ordgotime==null)?'disabled':''}></td>
+					value="<%=(orderVO.getOrdarrtime()!=null?orderVO.getOrdarrtime():"")%>" ${(orderVO.ordgotime==null)?'disabled':''}>
+					
+					<input type="hidden" name = "ordarrtime" value="" ${(orderVO.ordgotime==null)?'readonly':'disabled'}>
+					</td>
 			</tr>
 			<tr>
 				<td>銷單時間:</td>
 				<td><input type="text" name="orddeltime" size="45"
-					value="<%=orderVO.getOrddeltime()%>" ${(orderVO.ordarrtime==null)?'disabled':''}></td>
+					value="<%=(orderVO.getOrddeltime()!=null?orderVO.getOrddeltime():"")%>" ${(orderVO.ordarrtime==null)?'disabled':''}>
+					
+					<input type="hidden" name="orddeltime" value="" ${(orderVO.ordarrtime==null)?'readonly':'disabled'}>
+					</td>
 			</tr>	
 			<tr>
 				<td>訂單狀態:</td>

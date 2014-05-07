@@ -230,7 +230,26 @@ public class ProductDAO implements ProductDAO_Interface{
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
-			
+			while (rs.next()) {
+				productVO = new ProductVO();
+				productVO.setProno(rs.getInt("prono"));
+				productVO.setProductname(rs.getString("productname"));
+				productVO.setCategory(rs.getString("category"));
+				productVO.setPrice(rs.getInt("price"));
+				productVO.setImage1(rs.getBytes("image1"));
+				productVO.setImage2(rs.getBytes("image2"));
+				productVO.setImage3(rs.getString("image3"));
+				productVO.setQuantity(rs.getInt("quantity"));
+				productVO.setMinimumquantity(rs.getInt("minimumquantity"));
+				productVO.setStatus(rs.getInt("status"));
+				productVO.setKeyword(rs.getString("keyword"));
+				productVO.setDescription(rs.getString("description"));
+				productVO.setRelatedProducts(rs.getString("relatedproducts"));
+				productVO.setPriority(rs.getInt("priority"));
+				productVO.setDiscount(rs.getDouble("discount"));
+				productVO.setScore(rs.getInt("score"));
+				list.add(productVO);
+			}
 		}catch(SQLException se){
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());

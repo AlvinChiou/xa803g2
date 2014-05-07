@@ -4,7 +4,7 @@ public class ProdItemVO {
 	private Integer itemno;
 	private Integer itemqty;
 	private String itemmemo;
-	private Long ordno;
+	private String ordno;
 	private Integer prono;
 	public Integer getItemno() {
 		return itemno;
@@ -24,10 +24,10 @@ public class ProdItemVO {
 	public void setItemmemo(String itemmemo) {
 		this.itemmemo = itemmemo;
 	}
-	public Long getOrdno() {
+	public String getOrdno() {
 		return ordno;
 	}
-	public void setOrdno(Long ordno) {
+	public void setOrdno(String ordno) {
 		this.ordno = ordno;
 	}
 	public Integer getProno() {
