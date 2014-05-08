@@ -10,22 +10,39 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
+	
+	
 	<resource-ref>
 	    <description>DB Connection</description>
 	    <res-ref-name>jdbc/TestDB</res-ref-name>
 	    <res-type>javax.sql.DataSource</res-type>
 	    <res-auth>Container</res-auth>
 	</resource-ref>
-	
+
 	<servlet>
 		<servlet-name>OrderServlet</servlet-name>
 		<servlet-class>com.order.controller.OrderServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<display-name>ProductServlet</display-name>
+		<servlet-name>ProductServlet</servlet-name>
+		<servlet-class>com.product.controller.ProductServlet</servlet-class>
+		<init-param>
+		    <param-name>createPictureFolder</param-name>
+		    <param-value>ProductPicture</param-value>
+		</init-param>
+		
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>OrderServlet</servlet-name>
 		<url-pattern>/ORDER/order.do</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ProductServlet</servlet-name>
+		<url-pattern>/PRODUCT/product.do</url-pattern>
+	</servlet-mapping>
 	
+
 	<session-config>
 	    <session-timeout>
 	        60 <!-- minutes -->
