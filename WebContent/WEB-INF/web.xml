@@ -33,6 +33,13 @@
 		</init-param>
 		
 	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>ProductShowImage</display-name>
+		<servlet-name>ProductShowImage</servlet-name>
+		<servlet-class>com.product.controller.ProductShowImage</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>OrderServlet</servlet-name>
 		<url-pattern>/ORDER/order.do</url-pattern>
@@ -40,6 +47,10 @@
 	<servlet-mapping>
 		<servlet-name>ProductServlet</servlet-name>
 		<url-pattern>/PRODUCT/product.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ProductShowImage</servlet-name>
+		<url-pattern>/ProductShowImage</url-pattern>
 	</servlet-mapping>
 	
 
