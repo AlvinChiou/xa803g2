@@ -11,12 +11,13 @@ public class ProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
 	public void init()throws ServletException{
-		String folderName = getInitParameter("createPictureFolder");
-		String folderPath = getServletContext().getRealPath(folderName);		
-		File imgDir = new File(folderPath+","+folderName);
+		String folderName = getInitParameter("createPictureFolder").toString();
+		String folderPath = (getServletContext().getRealPath(folderName)).toString();		
+		File imgDir = new File(folderPath);
 		
 		if(!imgDir.exists()){
 			imgDir.mkdirs();
+			log("資料夾:"+folderName+"初始化完成!");
 		}
 	}
 	
