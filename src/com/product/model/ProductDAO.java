@@ -52,7 +52,7 @@ public class ProductDAO implements ProductDAO_Interface{
 			pstmt.setInt(3, productVO.getPrice());
 			pstmt.setBytes(4, productVO.getImage1());
 			pstmt.setBytes(5, productVO.getImage2());
-			pstmt.setString(6, productVO.getImage3());
+			pstmt.setBytes(6, productVO.getImage3());
 			pstmt.setInt(7, productVO.getQuantity());
 			pstmt.setInt(8, productVO.getMinimumquantity());
 			pstmt.setInt(9, productVO.getStatus());
@@ -97,7 +97,7 @@ public class ProductDAO implements ProductDAO_Interface{
 			pstmt.setInt(3, productVO.getPrice());
 			pstmt.setBytes(4, productVO.getImage1());
 			pstmt.setBytes(5, productVO.getImage2());
-			pstmt.setString(6, productVO.getImage3());
+			pstmt.setBytes(6, productVO.getImage3());
 			pstmt.setInt(7, productVO.getQuantity());
 			pstmt.setInt(8, productVO.getMinimumquantity());
 			pstmt.setInt(9, productVO.getStatus());
@@ -178,7 +178,7 @@ public class ProductDAO implements ProductDAO_Interface{
 				productVO.setPrice(rs.getInt("price"));
 				productVO.setImage1(rs.getBytes("image1"));
 				productVO.setImage2(rs.getBytes("image2"));
-				productVO.setImage3(rs.getString("image3"));
+				productVO.setImage3(rs.getBytes("image3"));
 				productVO.setQuantity(rs.getInt("quantity"));
 				productVO.setMinimumquantity(rs.getInt("minimumquantity"));
 				productVO.setStatus(rs.getInt("status"));
@@ -238,7 +238,7 @@ public class ProductDAO implements ProductDAO_Interface{
 				productVO.setPrice(rs.getInt("price"));
 				productVO.setImage1(rs.getBytes("image1"));
 				productVO.setImage2(rs.getBytes("image2"));
-				productVO.setImage3(rs.getString("image3"));
+				productVO.setImage3(rs.getBytes("image3"));
 				productVO.setQuantity(rs.getInt("quantity"));
 				productVO.setMinimumquantity(rs.getInt("minimumquantity"));
 				productVO.setStatus(rs.getInt("status"));

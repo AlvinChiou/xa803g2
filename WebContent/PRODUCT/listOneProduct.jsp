@@ -1,8 +1,9 @@
+<%@page import="java.sql.ResultSet"%>
+<%@page import="com.sun.org.apache.xerces.internal.impl.dv.util.Base64"%>
 <%@ page contentType="text/html; charset=UTF-8"
     pageEncoding="BIG5"%>
 <%@ page import="com.product.model.*" %>
 <%@ page import="com.productitem.model.*" %>    
-
 <%--Controller已預先將查詢完畢的資料放入 ProductVO並存入request--%>
 <%ProductVO productVO = (ProductVO) request.getAttribute("productVO"); %>
 
@@ -43,9 +44,9 @@
 		<td><%=productVO.getProductname()%></td>
 		<td><%=productVO.getCategory()%></td>
 		<td><%=productVO.getPrice()%></td>
-		<td></td>
-		<td></td>
-		<td></td>
+		<td><img alt="image1" src="data:image/jpg;base64,<%=productVO.getImage1()%>"></td>
+		<td><img alt="image2" src="data:image/jpg;base64,<%=productVO.getImage2()%>"></td>
+		<td><img alt="image3" src="data:image/jpg;base64,<%=productVO.getImage3()%>"></td>
 		<td><%=productVO.getQuantity()%></td>
 		<td><%=productVO.getMinimumquantity()%></td>
 		<td><%=productVO.getStatus()%></td>

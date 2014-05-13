@@ -2,6 +2,8 @@ package com.product.model;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.Date;
@@ -64,7 +66,7 @@ public class ProductDAO_JDBC implements ProductDAO_Interface {
 			pstmt.setInt(3, productVO.getPrice());
 			pstmt.setBytes(4, productVO.getImage1());
 			pstmt.setBytes(5, productVO.getImage2());
-			pstmt.setString(6, productVO.getImage3());
+			pstmt.setBytes(6, productVO.getImage3());
 			pstmt.setInt(7, productVO.getQuantity());
 			pstmt.setInt(8, productVO.getMinimumquantity());
 			pstmt.setInt(9, productVO.getStatus());
@@ -125,7 +127,7 @@ public class ProductDAO_JDBC implements ProductDAO_Interface {
 			pstmt.setInt(3, productVO.getPrice());
 			pstmt.setBytes(4, productVO.getImage1());
 			pstmt.setBytes(5, productVO.getImage2());
-			pstmt.setString(6, productVO.getImage3());
+			pstmt.setBytes(6, productVO.getImage3());
 			pstmt.setInt(7, productVO.getQuantity());
 			pstmt.setInt(8, productVO.getMinimumquantity());
 			pstmt.setInt(9, productVO.getStatus());
@@ -233,7 +235,7 @@ public class ProductDAO_JDBC implements ProductDAO_Interface {
 				productVO.setPrice(rs.getInt("price"));
 				productVO.setImage1(rs.getBytes("image1"));
 				productVO.setImage2(rs.getBytes("image2"));
-				productVO.setImage3(rs.getString("image3"));
+				productVO.setImage3(rs.getBytes("image3"));
 				productVO.setQuantity(rs.getInt("quantity"));
 				productVO.setMinimumquantity(rs.getInt("minimumquantity"));
 				productVO.setStatus(rs.getInt("status"));
@@ -300,7 +302,7 @@ public class ProductDAO_JDBC implements ProductDAO_Interface {
 				productVO.setPrice(rs.getInt("price"));
 				productVO.setImage1(rs.getBytes("image1"));
 				productVO.setImage2(rs.getBytes("image2"));
-				productVO.setImage3(rs.getString("image3"));
+				productVO.setImage3(rs.getBytes("image3"));
 				productVO.setQuantity(rs.getInt("quantity"));
 				productVO.setMinimumquantity(rs.getInt("minimumquantity"));
 				productVO.setStatus(rs.getInt("status"));
@@ -345,35 +347,35 @@ public class ProductDAO_JDBC implements ProductDAO_Interface {
 		return list;
 	}
 
-	public static void main(String[] args){
+	public static void main(String[] args) throws IOException{
 		ProductDAO_JDBC dao = new ProductDAO_JDBC();
 		//新增商品
-//		File insertFile = new File("D:\\Files\\455.jpg");      //new a file 
-//		FileInputStream fis = new FileInputStream(insertFile);
+		//File insertFile = new File("D:\\Files\\455.jpg");      //new a file 
+		//FileInputStream fis = new FileInputStream(insertFile);
 		//以下三行將圖片轉換成byte[]陣列 
 		//最後寫入Database
-//		FileInputStream fis = new FileInputStream("D:\\455.jpg");
-//		int len = fis.available(); 
-//		byte[] buffer = new byte[len];
-//		fis.read(buffer); //這行要加
-//		fis.close();
-//		ProductVO productVO_insert = new ProductVO();		
-//		productVO_insert.setProductname("新耐吉斯．成犬火雞肉+田園蔬果【7.5公斤】");
-//		productVO_insert.setCategory("狗飼料");
-//		productVO_insert.setPrice(1060);
-//		productVO_insert.setImage1(buffer);
-//		productVO_insert.setQuantity(100);
-//		productVO_insert.setMinimumquantity(5);
-//		productVO_insert.setStatus(0);
-//		productVO_insert.setKeyword("狗飼料, 動物食品");
-//		productVO_insert
-//				.setDescription("添加大量的田園蔬果及鮮肉，美味的口感，滿足挑剔的胃口低敏配方，不含玉米、大豆、小麥、大豆…容易引起食物過敏的食材讓狗狗減少搔癢落毛困擾，讓毛髮更加柔柔亮亮喲");
-//		productVO_insert.setRelatedProducts(null);
-//		productVO_insert.setPriority(1);
-//		productVO_insert.setDiscount(1.0);
-//		productVO_insert.setScore(0);
-//		int updateCount_insert = dao.insert(productVO_insert);
-//		System.out.println(updateCount_insert);
+		FileInputStream fis = new FileInputStream("D:\\455.jpg");
+		int len = fis.available(); 
+		byte[] buffer = new byte[len];
+		fis.read(buffer); //這行要加
+		fis.close();
+		ProductVO productVO_insert = new ProductVO();		
+		productVO_insert.setProductname("新耐吉斯．成犬火雞肉+田園蔬果【15.5公斤】");
+		productVO_insert.setCategory("狗飼料");
+		productVO_insert.setPrice(1060);
+		productVO_insert.setImage1(buffer);
+		productVO_insert.setQuantity(100);
+		productVO_insert.setMinimumquantity(5);
+		productVO_insert.setStatus(0);
+		productVO_insert.setKeyword("狗飼料, 動物食品");
+		productVO_insert
+				.setDescription("添加大量的田園蔬果及鮮肉，美味的口感，滿足挑剔的胃口低敏配方，不含玉米、大豆、小麥、大豆…容易引起食物過敏的食材讓狗狗減少搔癢落毛困擾，讓毛髮更加柔柔亮亮喲");
+		productVO_insert.setRelatedProducts(null);
+		productVO_insert.setPriority(1);
+		productVO_insert.setDiscount(1.0);
+		productVO_insert.setScore(0);
+		int updateCount_insert = dao.insert(productVO_insert);
+		System.out.println(updateCount_insert);
 		
 		//修改商品
 //		ProductVO productVO_UPDATE = new ProductVO();

@@ -77,7 +77,7 @@ public class ProductServlet extends HttpServlet {
 				
 				//查詢完成，將結果轉交予listOneProduct.jsp
 				request.setAttribute("productVO", productVO);//因查詢結果包入productVO物件，自資料庫productVO物件存入request
-				String url = "PRODUCT/listOneProduct.jsp";
+				String url = "listOneProduct.jsp";
 				RequestDispatcher successView = request.getRequestDispatcher(url);
 				successView.forward(request, response);
 				

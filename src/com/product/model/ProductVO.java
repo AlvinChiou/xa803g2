@@ -9,7 +9,7 @@ public class ProductVO implements java.io.Serializable{
 	private Integer price;
 	private byte[] image1;
 	private byte[] image2;
-	private String image3;
+	private byte[] image3;
 	private Integer quantity;
 	private Integer minimumquantity;
 	private Integer status;
@@ -55,10 +55,10 @@ public class ProductVO implements java.io.Serializable{
 	public void setImage2(byte[] image2) {
 		this.image2 = image2;
 	}
-	public String getImage3() {
+	public byte[] getImage3() {
 		return image3;
 	}
-	public void setImage3(String image3) {
+	public void setImage3(byte[] image3) {
 		this.image3 = image3;
 	}
 	public Integer getQuantity() {

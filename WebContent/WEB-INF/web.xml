@@ -34,9 +34,6 @@
 		
 	</servlet>
 	<servlet>
-		<description>
-		</description>
-		<display-name>ProductShowImage</display-name>
 		<servlet-name>ProductShowImage</servlet-name>
 		<servlet-class>com.product.controller.ProductShowImage</servlet-class>
 	</servlet>
