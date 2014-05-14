@@ -20,6 +20,7 @@ import com.product.model.ProductVO;
 import com.utilities.ImageUtil;
 
 public class ProductShowImage extends HttpServlet {
+	
 	Connection con;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("Big5");
@@ -27,17 +28,26 @@ public class ProductShowImage extends HttpServlet {
 		ServletOutputStream out = response.getOutputStream();
 		
 		Integer prono = new Integer(request.getParameter("prono"));
-		
+		Integer image = new Integer(request.getParameter("image"));
 		ProductService proSvc = new ProductService();
 		ProductVO productVO = proSvc.getOneProduct(prono);
-		ImageUtil imageUtil = new ImageUtil();
-		byte[] image1 = imageUtil.shrink(productVO.getImage1(), 200);
-		byte[] image2 = imageUtil.shrink(productVO.getImage2(), 200);
-		byte[] image3 = imageUtil.shrink(productVO.getImage3(), 200);
+
 		
-		out.write(image1);
-		out.write(image2);
-		out.write(image3);
+		switch (image){
+		case 1:
+			byte[] image1 = ImageUtil.shrink(productVO.getImage1(), 200);
+			out.write(image1);
+			break;
+		case 2:
+			byte[] image2 = ImageUtil.shrink(productVO.getImage2(), 200);
+			out.write(image2);
+			break;
+		case 3:
+			byte[] image3 = ImageUtil.shrink(productVO.getImage3(), 200);
+			out.write(image3);
+			break;
+		}
+
 	}
 	public void init() throws ServletException {
 		try {

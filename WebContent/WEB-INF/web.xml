@@ -47,7 +47,7 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>ProductShowImage</servlet-name>
-		<url-pattern>/ProductShowImage</url-pattern>
+		<url-pattern>/PRODUCT/ProductShowImage.do</url-pattern>
 	</servlet-mapping>
 	
 

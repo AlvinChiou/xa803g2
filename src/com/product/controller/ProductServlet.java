@@ -12,17 +12,18 @@ import com.oreilly.servlet.MultipartRequest;
 import com.product.model.ProductService;
 import com.product.model.ProductVO;
 
-public class ProductServlet extends HttpServlet {
-//	String folderName = getInitParameter("createPictureFolder").toString();
-//	String folderPath = (getServletContext().getRealPath(folderName))
-//			.toString();
-//	public void init() throws ServletException {		
-//		File imgDir = new File(folderPath);
-//		if (!imgDir.exists()) {
-//			imgDir.mkdirs();
-//			log("資料夾:" + folderName + "初始化完成!");
-//		}
-//	}
+public class ProductServlet extends HttpServlet {	
+	String folderPath;
+	public void init() throws ServletException {		
+		String folderName = getInitParameter("createPictureFolder").toString();
+		folderPath = (getServletContext().getRealPath(folderName))
+				.toString();
+		File imgDir = new File(folderPath);
+		if (!imgDir.exists()) {
+			imgDir.mkdirs();
+			log("資料夾:" + folderName + "初始化完成!");
+		}
+	}
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -114,6 +115,19 @@ public class ProductServlet extends HttpServlet {
 			}catch(Exception e){
 				errorMsgs.add("修改資料取出時失敗"+e.getMessage());
 				RequestDispatcher failureView = request.getRequestDispatcher(requestURL);
+				failureView.forward(request, response);
+			}
+		}
+		if("update".equals(action)){
+			List<String> errorMsgs = new LinkedList<String>();
+			request.setAttribute("errorMsgs", errorMsgs);
+			MultipartRequest multi = new MultipartRequest(request, folderPath, 10*1024*1024, "Big5");
+			String requestURL = multi.getParameter("requestURL");
+			try{
+				
+			}catch(Exception e){
+				errorMsgs.add("修改資料失敗:"+e.getMessage());
+				RequestDispatcher failureView = request.getRequestDispatcher("/PRODUCT/update_product_input.jsp");
 				failureView.forward(request, response);
 			}
 		}

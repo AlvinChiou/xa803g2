@@ -44,9 +44,9 @@
 		<td><%=productVO.getProductname()%></td>
 		<td><%=productVO.getCategory()%></td>
 		<td><%=productVO.getPrice()%></td>
-		<td><img alt="image1" src="data:image/jpg;base64,<%=productVO.getImage1()%>"></td>
-		<td><img alt="image2" src="data:image/jpg;base64,<%=productVO.getImage2()%>"></td>
-		<td><img alt="image3" src="data:image/jpg;base64,<%=productVO.getImage3()%>"></td>
+		<td><img alt="image1" src="<%=request.getContextPath()%>/PRODUCT/ProductShowImage.do?prono=<%=productVO.getProno()%>&&image=1"></td>
+		<td><img alt="image2" src="<%=request.getContextPath()%>/PRODUCT/ProductShowImage.do?prono=<%=productVO.getProno()%>&&image=2"></td>
+		<td><img alt="image3" src="<%=request.getContextPath()%>/PRODUCT/ProductShowImage.do?prono=<%=productVO.getProno()%>&&image=3"></td>
 		<td><%=productVO.getQuantity()%></td>
 		<td><%=productVO.getMinimumquantity()%></td>
 		<td><%=productVO.getStatus()%></td>
