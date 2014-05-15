@@ -52,6 +52,10 @@ public class ProductService {
 		return dao.getAll();
 	}
 	
+	public List<ProductVO> getAll(Map<String, String[]> map){
+		return dao.getAll(map);
+	}
+	
 	public ProductVO getOneProduct(int prono){
 		return dao.findByPrimaryKey(prono);
 	}

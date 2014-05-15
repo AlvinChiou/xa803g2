@@ -12,7 +12,7 @@
 	ProdItemService prodItemSvc = new ProdItemService();
 	ProdItemVO prodItemVO = prodItemSvc.getOnProdItemVO(productVO.getProno());
 %>
-<!DOCTYPE html>
+<!DOCTYPE>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=BIG5">

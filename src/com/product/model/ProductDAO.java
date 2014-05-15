@@ -7,12 +7,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+
+import jdbc.util.CompositeQuery.jdbcUtil_CompositeQuery_Product;
 
 import com.sun.xml.internal.ws.wsdl.writer.document.Port;
 public class ProductDAO implements ProductDAO_Interface{
@@ -253,6 +256,50 @@ public class ProductDAO implements ProductDAO_Interface{
 		}catch(SQLException se){
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
+		}finally{
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	@Override
+	public List<ProductVO> getAll(Map<String, String[]> map) {
+		List<ProductVO> list = new ArrayList<ProductVO>();
+		ProductVO productVO = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try{
+			con = ds.getConnection();
+			String finalSQL = "SELECT * FROM product"
+					+jdbcUtil_CompositeQuery_Product.get_WhereCondition(map)
+					+"ORDER BY prono";
+			pstmt = con.prepareStatement(finalSQL);
+			System.out.println("¡´¡´finalSQL(by DAO) = "+finalSQL);
+			rs = pstmt.executeQuery();
+			
+		}catch(SQLException se){
+			throw new RuntimeException("A database error occured."+se.getMessage());
 		}finally{
 			if (rs != null) {
 				try {
