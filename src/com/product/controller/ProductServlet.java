@@ -16,7 +16,6 @@ import com.product.model.ProductVO;
 
 public class ProductServlet extends HttpServlet {
 	String folderPath;
-
 	public void init() throws ServletException {
 		String folderName = getInitParameter("createPictureFolder").toString();
 		folderPath = (getServletContext().getRealPath(folderName)).toString();
@@ -42,11 +41,13 @@ public class ProductServlet extends HttpServlet {
 		/*
 		 * 檢查表單送進來的contentType是否為multipart/form-data
 		 * 如果是，則使用MultipartRequest處裡參數。否則直接使用request.getParameter() 處理參數。
-		 */
+		 */							
 		if (contentType.startsWith("multipart/form-data")) {
 			multi = new MultipartRequest(request, folderPath, 10 * 1024 * 1024,
 					"Big5");
 			action = multi.getParameter("action");
+		}else{
+			action = request.getParameter("action");
 		}
 
 		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
@@ -95,7 +96,7 @@ public class ProductServlet extends HttpServlet {
 
 				// 查詢完成，將結果轉交予listOneProduct.jsp
 				request.setAttribute("productVO", productVO);// 因查詢結果包入productVO物件，自資料庫productVO物件存入request
-				String url = "listOneProduct.jsp";
+				String url = "/PRODUCT/listOneProduct.jsp";
 				RequestDispatcher successView = request
 						.getRequestDispatcher(url);
 				successView.forward(request, response);
@@ -290,20 +291,23 @@ public class ProductServlet extends HttpServlet {
 			request.setAttribute("errorMsgs", errorMsgs);
 			try {
 				// Integer prono = new Integer(multi.getParameter("prono"));
-				String productname = null;
-				if (multi.getParameter("productname") != null) {
+		System.out.println("----------------------------------");
+		String productname = null;
+		System.out.println(multi==null);
+		System.out.println("----------------------------------");
+				if (multi.getParameter("productname").length() != 0) {
 					productname = multi.getParameter("productname");
 				} else {
 					errorMsgs.add("請輸入商品名稱");
 				}
 				String category = null;
-				if (multi.getParameter("category") != null) {
+				if (multi.getParameter("category").length() != 0) {
 					category = multi.getParameter("category");
 				} else {
 					errorMsgs.add("請輸入商品分類");
 				}
 				Integer price = null;
-				if (multi.getParameter("price") != null) {
+				if (multi.getParameter("price").length() != 0) {
 					try {
 						price = new Integer(multi.getParameter("price"));
 					} catch (NumberFormatException e) {
@@ -314,7 +318,7 @@ public class ProductServlet extends HttpServlet {
 				}
 
 				byte[] image1 = null;
-				if (multi.getFile("image1") != null) {
+				if (multi.getFile("image1").length() != 0) {
 					FileInputStream fis = new FileInputStream(
 							multi.getFile("image1"));
 					int len = fis.available();
@@ -324,7 +328,7 @@ public class ProductServlet extends HttpServlet {
 				}
 
 				byte[] image2 = null;
-				if (multi.getFile("image2") != null) {
+				if (multi.getFile("image2").length() != 0) {
 					FileInputStream fis = new FileInputStream(
 							multi.getFile("image2"));
 					int len = fis.available();
@@ -334,7 +338,7 @@ public class ProductServlet extends HttpServlet {
 				}
 
 				byte[] image3 = null;
-				if (multi.getFile("image3") != null) {
+				if (multi.getFile("image3").length() != 0) {
 					FileInputStream fis = new FileInputStream(
 							multi.getFile("image3"));
 					int len = fis.available();
@@ -343,7 +347,7 @@ public class ProductServlet extends HttpServlet {
 					fis.close();
 				}
 				Integer quantity = null;
-				if (multi.getParameter("quantity") != null) {
+				if (multi.getParameter("quantity").length()!=0) {
 					try {
 						quantity = new Integer(multi.getParameter("quantity"));
 					} catch (NumberFormatException e) {
@@ -353,7 +357,7 @@ public class ProductServlet extends HttpServlet {
 					errorMsgs.add("商品數量不得為空");
 				}
 				Integer minimumquantity = null;
-				if (multi.getParameter("minimumquantity") != null) {
+				if (multi.getParameter("minimumquantity").length() != 0) {
 					try {
 						minimumquantity = new Integer(
 								multi.getParameter("minimumquantity"));
@@ -363,14 +367,29 @@ public class ProductServlet extends HttpServlet {
 				} else {
 					errorMsgs.add("商品安全數量不得為空");
 				}
-				Integer status = new Integer(multi.getParameter("status"));
+				Integer status = null;
+				if(multi.getParameter("status").length()!=0){
+					status = new Integer(multi.getParameter("status"));
+				}else{
+					errorMsgs.add("請選擇商品狀態");
+				}
+				
 				String keyword = multi.getParameter("keyword");
 				String description = multi.getParameter("description");
 				String relatedProducts = multi.getParameter("relatedProducts");
 				Integer priority = new Integer(multi.getParameter("priority"));
-				Double discount = new Double(multi.getParameter("discount"));
+				
+				Double discount = null;
+				if(multi.getParameter("discount").length() != 0){
+					try{
+						discount = new Double(multi.getParameter("discount"));
+					}catch(NumberFormatException e){
+						errorMsgs.add("商品折扣數必須為小數");
+					}
+				}else if(multi.getParameter("discount").length() == 0){
+					errorMsgs.add("商品折扣數必須填寫");
+				}
 				Integer score = new Integer(multi.getParameter("score"));
-
 				ProductVO productVO = new ProductVO();
 				productVO.setProductname(productname);
 				productVO.setCategory(category);

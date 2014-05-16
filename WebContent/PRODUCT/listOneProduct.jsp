@@ -1,5 +1,3 @@
-<%@page import="java.sql.ResultSet"%>
-<%@page import="com.sun.org.apache.xerces.internal.impl.dv.util.Base64"%>
 <%@ page contentType="text/html; charset=UTF-8"
     pageEncoding="BIG5"%>
 <%@ page import="com.product.model.*" %>
@@ -12,14 +10,13 @@
 	ProdItemService prodItemSvc = new ProdItemService();
 	ProdItemVO prodItemVO = prodItemSvc.getOnProdItemVO(productVO.getProno());
 %>
-<!DOCTYPE>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=BIG5">
 <title>商品資料</title>
 </head>
 <body>
-<div bgcolor="yellow">商品資料</div>
+<div>商品資料</div>
 <table border='1'>
 	<tr>
 		<th>商品編號</th>
