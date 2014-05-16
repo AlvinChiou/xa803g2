@@ -139,7 +139,7 @@ ProductVO productVO = (ProductVO) request.getAttribute("productVO");
 		</tr>
 	</table>
 		<input name="action" value="insert" type="hidden">
-		<input name="submit" value="新增商品" type="submit">
+		<input name="submit" value="新增商品" type="submit" onclick="test()">
 	</form>
 </body>
 </html>

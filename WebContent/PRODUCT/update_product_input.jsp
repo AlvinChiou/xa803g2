@@ -151,7 +151,7 @@
 		<input type="hidden" name="requestURL" value="<%=request.getParameter("requestURL")%>"><!--接收原送出修改的來源網頁路徑後,再送給Controller準備轉交之用-->
 		<input type="hidden" name="whichPage" value="<%=request.getParameter("whichPage")%>">  <!--用於:istAllProduct.jsp 與 複合查詢 listProduct_ByCompositeQuery.jsp-->
 		<input name="action" value="update" type="hidden">
-		<input name="submit" value="編輯商品" type="submit">
+		<input name="submit" value="編輯商品" type="submit" onclick="test()">
 	</form>
 </body>
 </html>
