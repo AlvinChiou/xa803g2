@@ -4,18 +4,18 @@ import java.sql.Date;
 
 public class ProductVO implements java.io.Serializable{
 	private Integer prono;
-	private String productname;
-	private String category;
-	private Integer price;
-	private byte[] image1;
-	private byte[] image2;
-	private byte[] image3;
+	private String productname; //can null
+	private String category; //can null
+	private Integer price; //can null
+	private byte[] image1; //can null
+	private byte[] image2; //can null
+	private byte[] image3; //can null
 	private Integer quantity;
 	private Integer minimumquantity;
 	private Integer status;
-	private String keyword;
+	private String keyword; //can null
 	private String description;
-	private String relatedProducts;
+	private String relatedProducts; //can null
 	private Integer priority;
 	private Double discount;
 	private Integer score;

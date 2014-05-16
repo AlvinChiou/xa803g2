@@ -5,7 +5,7 @@ public class ProductService {
 	public ProductService(){
 		dao = new ProductDAO();
 	}
-	public ProductVO addProduct(Integer prono, String productname, String category, Integer price, byte[] image1, byte[] image2, byte[] image3, Integer quantity, Integer minimumquantity, Integer status, String keyword, String description, String relatedProducts, Integer priority, Double discount, Integer score){
+	public ProductVO addProduct(String productname, String category, Integer price, byte[] image1, byte[] image2, byte[] image3, Integer quantity, Integer minimumquantity, Integer status, String keyword, String description, String relatedProducts, Integer priority, Double discount, Integer score){
 		ProductVO productVO = new ProductVO();
 		//productVO.setProno(prono);
 		productVO.setProductname(productname);
