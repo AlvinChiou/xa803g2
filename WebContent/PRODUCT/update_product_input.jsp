@@ -9,6 +9,19 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=BIG5">
 <title>編輯商品資料</title>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/ckeditor/ckeditor.js"></script>
+<script type="text/javascript">
+	window.onload = function(){
+		CKEDITOR.replace( 'description' ,{toolbar: 'Full' , skin :  'moono' });
+	}	
+	function test() {  
+	    var editor_data = CKEDITOR.instances.content.getData();  
+	    if (editor_data== null  || editor_data== "" ){  
+	        alert( "請填寫商品簡介內容" );  
+	        return  false ;  
+	    }  
+	}  
+</script>
 </head>
 <body>
 <b>編輯商品資料</b>
@@ -100,7 +113,7 @@
 		</tr>
 		<tr>
 			<td>商品簡介:</td>
-			<td><textarea cols="40" name="description" rows="10" value="<%=productVO.getDescription()%>"></textarea></td>
+			<td><textarea class="ckeditor" id="description" cols="80" name="description" rows="10" value="<%=productVO.getDescription()%>"></textarea></td>
 		</tr>
 		<tr>
 			<td>相關商品</td>
