@@ -15,7 +15,7 @@
 </head>
 <body>
 <div bgcolor="yellow">
-<h3>檢視所有商品</h3>
+<b><h1>檢視所有商品</h1></b>
 </div>
 <c:if test="${not empty errorMsgs}">
 	<font color='red'>請修正以下錯誤:
@@ -43,7 +43,6 @@
 		<th>商品狀態</th>
 		<th>關鍵字</th>
 		<th>商品簡介</th>
-		<th>相關商品</th>
 		<th>優先權值</th>
 		<th>折扣</th>
 		<th>商品積分</th>
@@ -57,15 +56,14 @@
 		<td>${productVO.productname}</td>
 		<td>${productVO.category}</td>
 		<td>${(productVO.price)*(productVO.discount)}</td>
-		<td><img alt="image1" src="<%=request.getContextPath()%>/PRODUCT/ProductShowImage.do?prono=${productVO.prono}&&image=1"></td>
-		<td><img alt="image1" src="<%=request.getContextPath()%>/PRODUCT/ProductShowImage.do?prono=${productVO.prono}&&image=2"></td>
-		<td><img alt="image1" src="<%=request.getContextPath()%>/PRODUCT/ProductShowImage.do?prono=${productVO.prono}&&image=3"></td>
+		<td><div><img alt="image1" src="<%=request.getContextPath()%>/PRODUCT/ProductShowImage.do?prono=${productVO.prono}&&image=1"></div></td>
+		<td><div><img alt="image1" src="<%=request.getContextPath()%>/PRODUCT/ProductShowImage.do?prono=${productVO.prono}&&image=2"></div></td>
+		<td><div><img alt="image1" src="<%=request.getContextPath()%>/PRODUCT/ProductShowImage.do?prono=${productVO.prono}&&image=3"></div></td>
 		<td>${productVO.quantity}</td>
 		<td>${productVO.minimumquantity}</td>
 		<td>${(productVO.status==0)?"未上架":''}${(productVO.status==1)?"已上架":''}${(productVO.status==2)?"已下架":''}</td>
 		<td>${productVO.keyword}</td>
 		<td>${productVO.description}</td>
-		<td>${productVO.relatedProducts}</td>
 		<td>${productVO.priority}</td>
 		<td>${(productVO.discount<1.0)?"優惠中":"無折扣"}</td>
 		<td>${productVO.score}</td>

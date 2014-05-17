@@ -8,7 +8,7 @@
 <title>商品查詢</title>
 </head>
 <body>
-<div bgcolor="yellow">查詢商品</div>
+<b><h1>查詢商品</h1></b>
 <%--錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
 	<font color='red'>請修正以下錯誤:

@@ -25,7 +25,7 @@ ProductVO productVO = (ProductVO) request.getAttribute("productVO");
 </script>
 </head>
 <body>
-<b>新增商品</b>
+<b><h1>新增商品</h1></b>
 <c:if test="${not empty errorMsgs}">
 	<font color='red'>請修正以下錯誤
 	<ul>
@@ -70,16 +70,9 @@ ProductVO productVO = (ProductVO) request.getAttribute("productVO");
 		</tr>
 		<tr>
 			<td>主要圖片:</td>
-			<td><input type="file" name="image1"></td>
+			<td><input type="file" name="image1"><input type="file" name="image2"><input type="file" name="image3"></td>
 		</tr>
-		<tr>
-			<td>次要圖片:</td>
-			<td><input type="file" name="image2"></td>
-		</tr>
-		<tr>
-			<td>次要圖片:</td>
-			<td><input type="file" name="image3"></td>
-		</tr>
+		
 		<tr>
 			<td>商品數量:</td>
 			<td><input type="text" name="quantity" size="45"></td>
@@ -100,7 +93,7 @@ ProductVO productVO = (ProductVO) request.getAttribute("productVO");
 		</tr>
 		<tr>
 			<td>商品關鍵字:</td>
-			<td><textarea cols="40" name="keyword" rows="3"></textarea></td>
+			<td><textarea cols="80" name="keyword" rows="1"></textarea></td>
 		</tr>
 		<tr>
 			<td>商品簡介:</td>
