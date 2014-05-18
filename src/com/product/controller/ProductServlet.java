@@ -478,7 +478,7 @@ public class ProductServlet extends HttpServlet {
 				HttpSession session = request.getSession();
 				Map<String, String[]> map = (Map<String, String[]>) session
 						.getAttribute("map");
-				if (request.getParameter("whichPage") == null) {
+ 				if (request.getParameter("whichPage") == null) {
 					HashMap<String, String[]> map1 = (HashMap<String, String[]>) request
 							.getParameterMap();
 					HashMap<String, String[]> map2 = new HashMap<String, String[]>();
@@ -497,7 +497,7 @@ public class ProductServlet extends HttpServlet {
 
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
-				RequestDispatcher failureView = request.getRequestDispatcher("/select_page.jsp");
+				RequestDispatcher failureView = request.getRequestDispatcher("/PRODUCT/select_page.jsp");
 				failureView.forward(request, response);
 			}
 		}

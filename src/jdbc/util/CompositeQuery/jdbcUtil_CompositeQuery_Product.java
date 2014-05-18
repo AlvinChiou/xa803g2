@@ -15,12 +15,12 @@ public class jdbcUtil_CompositeQuery_Product {
 
 		String aCondition = null;
 
-		if ("prono".equals(columnName) || "productname".equals(columnName) || "category".equals(columnName) || "status".equals(columnName) || "keyword".equals(columnName)) // 用於其他
+		if ("prono".equals(columnName) || "status".equals(columnName)) // 用於其他
 			aCondition = columnName + "=" + value;
-		else if ("productname".equals(columnName) || "category".equals(columnName) || "status".equals(columnName) || "keyword".equals(columnName)) // 用於varchar
+		else if ("productname".equals(columnName) || "category".equals(columnName) || "keyword".equals(columnName)) // 用於varchar
 			aCondition = columnName + " like '%" + value + "%'";
-//		else if ("hiredate".equals(columnName))                          // 用於Oracle的date
-//			aCondition = "to_char(" + columnName + ",'yyyy-mm-dd')='" + value + "'";
+		else if ("hiredate".equals(columnName))                          // 用於Oracle的date
+			aCondition = "to_char(" + columnName + ",'yyyy-mm-dd')='" + value + "'";
 
 		return aCondition + " ";
 	}
@@ -47,23 +47,23 @@ public class jdbcUtil_CompositeQuery_Product {
 		return whereCondition.toString();
 	}
 
-	public static void main(String argv[]) {
-
-		// 配合 req.getParameterMap()方法 回傳 java.util.Map<java.lang.String,java.lang.String[]> 之測試
-		Map<String, String[]> map = new TreeMap<String, String[]>();
-		map.put("empno", new String[] { "7001" });
-		map.put("ename", new String[] { "KING" });
-		map.put("job", new String[] { "PRESIDENT" });
-		map.put("hiredate", new String[] { "1981-11-17" });
-		map.put("sal", new String[] { "5000.5" });
-		map.put("comm", new String[] { "0.0" });
-		map.put("deptno", new String[] { "10" });
-		map.put("action", new String[] { "getXXX" }); // 注意Map裡面會含有action的key
-
-		String finalSQL = "select * from emp2 "
-				          + jdbcUtil_CompositeQuery_Product.get_WhereCondition(map)
-				          + "order by empno";
-		System.out.println("●●finalSQL = " + finalSQL);
-
-	}
+//	public static void main(String argv[]) {
+//
+//		// 配合 req.getParameterMap()方法 回傳 java.util.Map<java.lang.String,java.lang.String[]> 之測試
+//		Map<String, String[]> map = new TreeMap<String, String[]>();
+//		map.put("empno", new String[] { "7001" });
+//		map.put("ename", new String[] { "KING" });
+//		map.put("job", new String[] { "PRESIDENT" });
+//		map.put("hiredate", new String[] { "1981-11-17" });
+//		map.put("sal", new String[] { "5000.5" });
+//		map.put("comm", new String[] { "0.0" });
+//		map.put("deptno", new String[] { "10" });
+//		map.put("action", new String[] { "getXXX" }); // 注意Map裡面會含有action的key
+//
+//		String finalSQL = "select * from emp2 "
+//				          + jdbcUtil_CompositeQuery_Product.get_WhereCondition(map)
+//				          + "order by empno";
+//		System.out.println("●●finalSQL = " + finalSQL);
+//
+//	}
 }

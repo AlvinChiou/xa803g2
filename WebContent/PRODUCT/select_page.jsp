@@ -20,7 +20,9 @@
 	</font>
 </c:if>
 <ul>
-	<li><a href='<%=request.getContextPath()%>/PRODUCT/listAllProduct.jsp'>顯示所有商品</a></li>
+	<b>商品管理</b>
+	<li><a href='<%=request.getContextPath()%>/PRODUCT/addProduct.jsp'>新增商品</a></li>
+	<li><a href='<%=request.getContextPath()%>/PRODUCT/listAllProduct.jsp'>檢視所有商品</a></li>
 	<li>
 		<form method="post" action="<%=request.getContextPath()%>/PRODUCT/product.do">
 			<b>請輸入商品編號:</b>
@@ -48,12 +50,12 @@
 	<sql:query var="rs" dataSource="${productCategory}">
 		SELECT DISTINCT category FROM product
 	</sql:query>
-		<form method="post" action="<%=request.getContextPath()%>/PRODUCT/product.do">
-		<b><font color=blue>查詢條件:</b><br>
+		<form method="post" action="product.do">
+		<b><font color=blue>請設定查詢條件</font></b><br>
 		<b>商品編號:</b>
-		<input type="text" name="prono"><br>
+		<input type="text" name="prono" value=""><br>
 		<b>商品名稱:</b>
-		<input type="text" name="productname"><br>
+		<input type="text" name="productname" value=""><br>
 		<b>商品分類:</b>
 		<select name="category">
 			<option value="">--請選擇商品分類--
@@ -69,14 +71,13 @@
 			<option value="2">已下架
 		</select><br>
 		<b>商品關鍵字:</b>
-		<input type="text" name="keyword">
+		<input type="text" name="keyword" value="">
 		<input name="action" value="listPorduct_ByCompositeQuery" type="hidden"><br> 
 		<input name="submit" value="查詢商品" type="submit">
 		<input name="reset" value="重設條件" type="reset">
 	</form>
 	</li>
-	<b>商品管理</b>
-	<li><a href='<%=request.getContextPath()%>/PRODUCT/addProduct.jsp'>新增商品</a></li>
+	
 </ul>
 </body>
 </html>
