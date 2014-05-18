@@ -2,6 +2,8 @@ package com.order.model;
 
 import java.util.*;
 
+import com.productitem.model.ProdItemVO;
+
 public class OrderService {
 	
 	private OrderDAO_Interface dao;
@@ -51,6 +53,9 @@ public class OrderService {
 		
 	public void deleteOrder(String ordno){
 		dao.delete(ordno);
+	}
+	public void addOrdersByGenKey(OrderVO orderVO, Vector<ProdItemVO> list){
+		dao.insertWithOrderItems(orderVO, list);
 	}
 	
 }

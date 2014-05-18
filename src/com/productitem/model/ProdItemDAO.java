@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.Vector;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -27,6 +28,7 @@ public class ProdItemDAO implements ProdItemDAO_interface{
 	private static final String GET_ALL_STMT = "SELECT itemno, itemqty, itemmemo, ordno, prono FROM Prod_Item ORDER BY itemno";
 	private static final String GET_ONE_STMT = "SELECT itemno, itemqty, itemmemo, ordno, prono FROM Prod_Item WHERE itemno = ?";
 	private static final String DELETE = "DELETE FROM Prod_Item WHERE itemno = ?";
+	private static final String DELETE_ORDNO = "DELETE FROM Prod_Item WHERE ordno = ?";
 	private static final String UPDATE = "UPDATE Prod_Item SET itemqty = ?, itemmemo = ?, ordno = ?, prono = ? WHERE itemno = ?";
 	
 	@Override
@@ -94,16 +96,26 @@ public class ProdItemDAO implements ProdItemDAO_interface{
 		}
 	}
 	@Override
-	public void delete(Integer itemno) {
+	public void delete(String ordno) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try{
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(DELETE);
-			pstmt.setInt(1, itemno);
+			pstmt = con.prepareStatement(DELETE_ORDNO);
+			pstmt.setString(4, ordno);
 			pstmt.executeUpdate();
 		}catch(SQLException se){
-			throw new RuntimeException("A database error occured. "+se.getMessage());
+			if(con != null){
+				try{
+					System.err.print("Transaction is being");
+					System.err.println("****ROLL BACK BY ProductItem****");
+					con.rollback();
+				}catch(SQLException excep){
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			
 		}finally{
 			if(pstmt != null){
 				try{
@@ -216,6 +228,39 @@ public class ProdItemDAO implements ProdItemDAO_interface{
 		
 		return list;
 	}
-	
-	
+	@Override
+	public void insertByOrdNo(ProdItemVO prodItemVO, Connection con) {
+		
+		PreparedStatement pstmt = null;
+		
+		try{
+			pstmt = con.prepareStatement(INSERT_STMT);
+			pstmt.setInt(1, prodItemVO.getItemqty());
+			pstmt.setString(2, prodItemVO.getItemmemo());
+			pstmt.setString(3, prodItemVO.getOrdno());
+			pstmt.setInt(4, prodItemVO.getProno());
+			pstmt.executeUpdate();
+		}catch(SQLException se){
+			if(con != null){
+				try{
+					System.err.print("Transaction is being");
+					System.err.println("****ROLL BACK BY ProductItem****");
+					con.rollback();
+				}catch(SQLException excep){
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+		}finally{
+			if(pstmt != null){
+				try{
+					pstmt.close();
+				}catch(SQLException se){
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+		
+	}
+		
 }

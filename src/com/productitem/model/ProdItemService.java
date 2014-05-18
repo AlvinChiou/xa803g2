@@ -1,6 +1,8 @@
 package com.productitem.model;
 import java.util.*;
 
+import com.order.model.OrderVO;
+
 public class ProdItemService {
 	private ProdItemDAO_interface dao;
 	public ProdItemService(){
@@ -32,7 +34,8 @@ public class ProdItemService {
 	public ProdItemVO getOnProdItemVO(int itemno){
 		return dao.findByPrimaryKey(itemno);
 	}
-	public void deleteProdItem(int itemno){
-		dao.delete(itemno);
+	public void deleteProdItem(String ordno){
+		dao.delete(ordno);
 	}
+
 }

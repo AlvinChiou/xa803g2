@@ -8,12 +8,15 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.Vector;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.productitem.model.ProdItemDAO;
+import com.productitem.model.ProdItemVO;
 import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
 
 public class OrderDAO implements OrderDAO_Interface {
@@ -263,6 +266,81 @@ public class OrderDAO implements OrderDAO_Interface {
 			}
 		}
 		return list;
+	}
+
+	@Override
+	public void insertWithOrderItems(OrderVO orderVO, Vector<ProdItemVO> list) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try{
+			con = ds.getConnection();
+			con.setAutoCommit(false);
+			
+			//先新增訂單編號
+			String cols[]={"ordno"}; //如果是複合主鍵則在陣列之內以逗號區隔
+			pstmt = con.prepareStatement(INSERT_STMT, cols);
+			pstmt.setString(1, orderVO.getOrdaddr());
+			pstmt.setString(2, orderVO.getOrdtel());
+			pstmt.setTimestamp(3, orderVO.getOrdgotime());
+			pstmt.setTimestamp(4, orderVO.getOrdarrtime());
+			pstmt.setTimestamp(5, orderVO.getOrddeltime());
+			pstmt.setInt(6, orderVO.getOrdstate());
+			pstmt.setString(7, orderVO.getMemno());
+			pstmt.setInt(8, orderVO.getEmpno());
+			pstmt.executeUpdate();
+			
+			String thisOrderNo = null;
+			ResultSet rs = pstmt.getGeneratedKeys();
+			if(rs.next()){
+				thisOrderNo = rs.getString(1);
+				System.out.println("取得自增主鍵值 ="+thisOrderNo);
+			}else{
+				System.out.println("未取得自增主鍵值");
+			}
+			rs.close();
+			//同時再新增訂單明細
+			ProdItemDAO dao = new ProdItemDAO();
+			for(ProdItemVO orderDetails : list){
+				orderDetails.setOrdno(thisOrderNo);
+				dao.insertByOrdNo(orderDetails, con);
+			}
+			//設定於 pstm.executeUpdate()之後
+			con.commit();
+			con.setAutoCommit(true);
+			System.out.println("list.size()-B="+list.size());
+			System.out.println("新增訂單編號" + thisOrderNo + "時,共有訂單明細" + list.size()
+					+ "筆同時被新增");
+		}catch(SQLException se){
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-dept");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		}finally{
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
 	}	
 
 }

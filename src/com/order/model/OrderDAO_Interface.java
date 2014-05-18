@@ -1,6 +1,9 @@
 package com.order.model;
 import java.util.*;
 
+import com.productitem.controller.ProductItemServlet;
+import com.productitem.model.ProdItemVO;
+
 public interface OrderDAO_Interface {
 	public void insert(OrderVO orderVO);
 	public void update(OrderVO orderVO);
@@ -12,4 +15,5 @@ public interface OrderDAO_Interface {
 	
 	//查詢某個會員的訂單(一對多)
 	//public Set<OrderVO> getOrderByMemNo(String memNo);
+	public void insertWithOrderItems(OrderVO orderVO, Vector<ProdItemVO> list);
 }
