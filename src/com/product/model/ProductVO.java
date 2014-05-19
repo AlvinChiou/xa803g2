@@ -3,7 +3,7 @@ import java.sql.Blob;
 import java.sql.Date;
 
 public class ProductVO implements java.io.Serializable{
-	private Integer prono;
+	private String prono;
 	private String productname; //can null
 	private String category; //can null
 	private Integer price; //can null
@@ -19,10 +19,10 @@ public class ProductVO implements java.io.Serializable{
 	private Integer priority;
 	private Double discount;
 	private Integer score;
-	public Integer getProno() {
+	public String getProno() {
 		return prono;
 	}
-	public void setProno(Integer prono) {
+	public void setProno(String prono) {
 		this.prono = prono;
 	}
 	public String getProductname() {

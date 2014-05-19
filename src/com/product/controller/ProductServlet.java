@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.io.*;
 
 import javax.servlet.*;
@@ -67,9 +68,9 @@ public class ProductServlet extends HttpServlet {
 					return;
 				}
 
-				Integer prono = null;
+				String prono = null;
 				try {
-					prono = new Integer(str);
+					prono = new String(str);
 				} catch (Exception e) {
 					errorMsgs.add("產品編號格式不正確");
 				}
@@ -105,7 +106,7 @@ public class ProductServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				RequestDispatcher failureView = request
-						.getRequestDispatcher("select_page.jsp");
+						.getRequestDispatcher("/select_page.jsp");
 				failureView.forward(request, response);
 			}
 		}
@@ -119,7 +120,7 @@ public class ProductServlet extends HttpServlet {
 
 			try {
 				// 接收請求參數
-				Integer prono = new Integer(request.getParameter("prono"));
+				String prono = new String(request.getParameter("prono"));
 
 				// 開始查詢資料
 				ProductService proSvc = new ProductService();
@@ -147,7 +148,7 @@ public class ProductServlet extends HttpServlet {
 			String requestURL = multi.getParameter("requestURL");
 			ProductService proSvc = new ProductService();
 			try {
-				Integer prono = new Integer(multi.getParameter("prono"));
+				String prono = new String(multi.getParameter("prono"));
 				String productname = multi.getParameter("productname").trim();
 				String category = multi.getParameter("category").trim();
 				Integer price = new Integer(multi.getParameter("price").trim());
@@ -289,12 +290,17 @@ public class ProductServlet extends HttpServlet {
 			// MultipartRequest multi = new MultipartRequest(request,
 			// folderPath, 10*1024*1024, "Big5");
 			request.setAttribute("errorMsgs", errorMsgs);
+			
 			try {
-				// Integer prono = new Integer(multi.getParameter("prono"));
+				 System.out.println("UUID 尚未產生");
+				 UUID uniqueKey = UUID.randomUUID();
+				 String prono = uniqueKey.toString().toUpperCase();
 		System.out.println("----------------------------------");
-		String productname = null;
-		System.out.println(multi==null);
+		System.out.println("uniqueKey="+uniqueKey);
+		System.out.println("String prono="+prono);
 		System.out.println("----------------------------------");
+				
+				String productname = null;
 				if (multi.getParameter("productname").length() != 0) {
 					productname = multi.getParameter("productname");
 				} else {
@@ -416,7 +422,7 @@ public class ProductServlet extends HttpServlet {
 				}
 				// 開始新增資料
 				ProductService proSvc = new ProductService();
-				productVO = proSvc.addProduct(productname, category, price,
+				productVO = proSvc.addProduct(prono, productname, category, price,
 						image1, image2, image3, quantity, minimumquantity,
 						status, keyword, description, relatedProducts,
 						priority, discount, score);
@@ -439,7 +445,7 @@ public class ProductServlet extends HttpServlet {
 			String requestURL = request.getParameter("requestURL");
 			try {
 				// 接收請求參數
-				Integer prono = new Integer(request.getParameter("prono"));
+				String prono = new String(request.getParameter("prono"));
 				// 開始刪除資料
 				ProductService proSvc = new ProductService();
 				ProductVO productVO = proSvc.getOneProduct(prono);
@@ -496,9 +502,10 @@ public class ProductServlet extends HttpServlet {
 						.getRequestDispatcher("/PRODUCT/listPorduct_ByCompositeQuery.jsp");
 
 			} catch (Exception e) {
-				errorMsgs.add(e.getMessage());
+				errorMsgs.add(e.getMessage());  
 				RequestDispatcher failureView = request.getRequestDispatcher("/PRODUCT/select_page.jsp");
 				failureView.forward(request, response);
+
 			}
 		}
 

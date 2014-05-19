@@ -5,9 +5,9 @@ public class ProductService {
 	public ProductService(){
 		dao = new ProductDAO();
 	}
-	public ProductVO addProduct(String productname, String category, Integer price, byte[] image1, byte[] image2, byte[] image3, Integer quantity, Integer minimumquantity, Integer status, String keyword, String description, String relatedProducts, Integer priority, Double discount, Integer score){
+	public ProductVO addProduct(String prono, String productname, String category, Integer price, byte[] image1, byte[] image2, byte[] image3, Integer quantity, Integer minimumquantity, Integer status, String keyword, String description, String relatedProducts, Integer priority, Double discount, Integer score){
 		ProductVO productVO = new ProductVO();
-		//productVO.setProno(prono);
+		productVO.setProno(prono);
 		productVO.setProductname(productname);
 		productVO.setCategory(category);
 		productVO.setPrice(price);
@@ -26,7 +26,7 @@ public class ProductService {
 		dao.insert(productVO);
 		return productVO;
 	}
-	public ProductVO updateProduct(Integer prono, String productname, String category, Integer price, byte[] image1, byte[] image2, byte[] image3, Integer quantity, Integer minimumquantity, Integer status, String keyword, String description, String relatedProducts, Integer priority, Double discount, Integer score){
+	public ProductVO updateProduct(String prono, String productname, String category, Integer price, byte[] image1, byte[] image2, byte[] image3, Integer quantity, Integer minimumquantity, Integer status, String keyword, String description, String relatedProducts, Integer priority, Double discount, Integer score){
 		ProductVO productVO = new ProductVO();
 		productVO.setProno(prono);
 		productVO.setProductname(productname);
@@ -56,11 +56,11 @@ public class ProductService {
 		return dao.getAll(map);
 	}
 	
-	public ProductVO getOneProduct(int prono){
+	public ProductVO getOneProduct(String prono){
 		return dao.findByPrimaryKey(prono);
 	}
 	
-	public void deleteProduct(int prono){
+	public void deleteProduct(String prono){
 		dao.delete(prono);
 	}
 }
