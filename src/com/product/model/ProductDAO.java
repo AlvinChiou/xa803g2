@@ -49,22 +49,21 @@ public class ProductDAO implements ProductDAO_Interface{
 		try{
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
-			pstmt.setString(1, productVO.getProno());
-			pstmt.setString(2, productVO.getProductname());
-			pstmt.setString(3, productVO.getCategory());
-			pstmt.setInt(4, productVO.getPrice());
-			pstmt.setBytes(5, productVO.getImage1());
-			pstmt.setBytes(6, productVO.getImage2());
-			pstmt.setBytes(7, productVO.getImage3());
-			pstmt.setInt(8, productVO.getQuantity());
-			pstmt.setInt(9, productVO.getMinimumquantity());
-			pstmt.setInt(10, productVO.getStatus());
-			pstmt.setString(11, productVO.getKeyword());
-			pstmt.setString(12, productVO.getDescription());
-			pstmt.setString(13, productVO.getRelatedProducts());
-			pstmt.setInt(14, productVO.getPriority());
-			pstmt.setDouble(15, productVO.getDiscount());
-			pstmt.setInt(16, productVO.getScore());
+			pstmt.setString(1, productVO.getProductname());
+			pstmt.setString(2, productVO.getCategory());
+			pstmt.setInt(3, productVO.getPrice());
+			pstmt.setBytes(4, productVO.getImage1());
+			pstmt.setBytes(5, productVO.getImage2());
+			pstmt.setBytes(6, productVO.getImage3());
+			pstmt.setInt(7, productVO.getQuantity());
+			pstmt.setInt(8, productVO.getMinimumquantity());
+			pstmt.setInt(9, productVO.getStatus());
+			pstmt.setString(10, productVO.getKeyword());
+			pstmt.setString(11, productVO.getDescription());
+			pstmt.setString(12, productVO.getRelatedProducts());
+			pstmt.setInt(13, productVO.getPriority());
+			pstmt.setDouble(14, productVO.getDiscount());
+			pstmt.setInt(15, productVO.getScore());
 			pstmt.executeUpdate();
 			
 		}catch(SQLException se){
@@ -110,7 +109,7 @@ public class ProductDAO implements ProductDAO_Interface{
 			pstmt.setInt(13, productVO.getPriority());
 			pstmt.setDouble(14, productVO.getDiscount());
 			pstmt.setInt(15, productVO.getScore());
-			pstmt.setString(16, productVO.getProno());
+			pstmt.setInt(16, productVO.getProno());
 			
 			pstmt.executeUpdate();
 		}catch(SQLException se){
@@ -134,13 +133,13 @@ public class ProductDAO implements ProductDAO_Interface{
 		}
 	}
 	@Override
-	public void delete(String prono) {
+	public void delete(Integer prono) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try{
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
-			pstmt.setString(1, prono);
+			pstmt.setInt(1, prono);
 			pstmt.executeUpdate();
 		}catch(SQLException se){
 			throw new RuntimeException("A database error occured. "
@@ -162,7 +161,7 @@ public class ProductDAO implements ProductDAO_Interface{
 		}
 	}
 	@Override
-	public ProductVO findByPrimaryKey(String prono) {
+	public ProductVO findByPrimaryKey(Integer prono) {
 		ProductVO productVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -170,12 +169,12 @@ public class ProductDAO implements ProductDAO_Interface{
 		try{
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
-			pstmt.setString(1, prono);
+			pstmt.setInt(1, prono);
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
 				productVO = new ProductVO();
-				productVO.setProno(rs.getString("prono"));
+				productVO.setProno(rs.getInt("prono"));
 				productVO.setProductname(rs.getString("productname"));
 				productVO.setCategory(rs.getString("category"));
 				productVO.setPrice(rs.getInt("price"));
@@ -235,7 +234,7 @@ public class ProductDAO implements ProductDAO_Interface{
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				productVO = new ProductVO();
-				productVO.setProno(rs.getString("prono"));
+				productVO.setProno(rs.getInt("prono"));
 				productVO.setProductname(rs.getString("productname"));
 				productVO.setCategory(rs.getString("category"));
 				productVO.setPrice(rs.getInt("price"));

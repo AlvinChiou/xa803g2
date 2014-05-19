@@ -57,8 +57,8 @@ public class ProductServlet extends HttpServlet {
 
 			try {
 				// 接收請求參數
-				String str = request.getParameter("prono");
-				if (str == null || (str.trim()).length() == 0) {
+				Integer prono = new Integer(request.getParameter("prono"));
+				if (prono == null) {
 					errorMsgs.add("請輸入產品編號");
 				}
 				if (!errorMsgs.isEmpty()) {
@@ -68,12 +68,12 @@ public class ProductServlet extends HttpServlet {
 					return;
 				}
 
-				String prono = null;
-				try {
-					prono = new String(str);
-				} catch (Exception e) {
-					errorMsgs.add("產品編號格式不正確");
-				}
+//				Integer prono = null;
+//				try {
+//					prono = new String.(str);
+//				} catch (Exception e) {
+//					errorMsgs.add("產品編號格式不正確");
+//				}
 
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = request
@@ -120,7 +120,7 @@ public class ProductServlet extends HttpServlet {
 
 			try {
 				// 接收請求參數
-				String prono = new String(request.getParameter("prono"));
+				Integer prono = new Integer(request.getParameter("prono"));
 
 				// 開始查詢資料
 				ProductService proSvc = new ProductService();
@@ -148,7 +148,7 @@ public class ProductServlet extends HttpServlet {
 			String requestURL = multi.getParameter("requestURL");
 			ProductService proSvc = new ProductService();
 			try {
-				String prono = new String(multi.getParameter("prono"));
+				Integer prono = new Integer(multi.getParameter("prono"));
 				String productname = multi.getParameter("productname").trim();
 				String category = multi.getParameter("category").trim();
 				Integer price = new Integer(multi.getParameter("price").trim());
@@ -422,7 +422,7 @@ public class ProductServlet extends HttpServlet {
 				}
 				// 開始新增資料
 				ProductService proSvc = new ProductService();
-				productVO = proSvc.addProduct(prono, productname, category, price,
+				productVO = proSvc.addProduct(productname, category, price,
 						image1, image2, image3, quantity, minimumquantity,
 						status, keyword, description, relatedProducts,
 						priority, discount, score);
@@ -445,7 +445,7 @@ public class ProductServlet extends HttpServlet {
 			String requestURL = request.getParameter("requestURL");
 			try {
 				// 接收請求參數
-				String prono = new String(request.getParameter("prono"));
+				Integer prono = new Integer(request.getParameter("prono"));
 				// 開始刪除資料
 				ProductService proSvc = new ProductService();
 				ProductVO productVO = proSvc.getOneProduct(prono);
