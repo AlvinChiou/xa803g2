@@ -8,7 +8,6 @@
 <%--根據ProductItemVO取出對應的productVO物件--%>
 <% 
 	ProdItemService prodItemSvc = new ProdItemService();
-	ProdItemVO prodItemVO = prodItemSvc.getOnProdItemVO(productVO.getProno());
 %>
 <html>
 <head>
