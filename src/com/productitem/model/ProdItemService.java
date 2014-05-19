@@ -8,23 +8,25 @@ public class ProdItemService {
 	public ProdItemService(){
 		dao = new ProdItemDAO();
 	}
-	public ProdItemVO addProdItem(Integer itemno, Integer itemqty, String itemmemo, String ordno, Integer prono){
+	public ProdItemVO addProdItem(Integer itemno, Integer itemqty, String itemmemo, String ordno, Integer prono, Integer price){
 		ProdItemVO prodItemVO = new ProdItemVO();	
 		prodItemVO.setItemmemo(itemmemo);
 		prodItemVO.setItemqty(itemqty);
 		prodItemVO.setItemno(itemno);
 		prodItemVO.setOrdno(ordno);
 		prodItemVO.setProno(prono);
+		prodItemVO.setPrice(price);
 		dao.insert(prodItemVO);
 		return prodItemVO;
 	}
-	public ProdItemVO updateProdItemVO(Integer itemno, Integer itemqty, String itemmemo, String ordno, Integer prono){
+	public ProdItemVO updateProdItemVO(Integer itemno, Integer itemqty, String itemmemo, String ordno, Integer prono, Integer price){
 		ProdItemVO prodItemVO = new ProdItemVO();
 		prodItemVO.setItemmemo(itemmemo);
 		prodItemVO.setItemqty(itemqty);
 		prodItemVO.setItemno(itemno);
 		prodItemVO.setOrdno(ordno);
 		prodItemVO.setProno(prono);
+		prodItemVO.setPrice(price);
 		dao.update(prodItemVO);
 		return prodItemVO;
 	}

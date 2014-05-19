@@ -38,11 +38,9 @@
 		<servlet-class>com.product.controller.ProductShowImage</servlet-class>
 	</servlet>
 	<servlet>
-		<description>
-		</description>
-		<display-name>ProductItem</display-name>
-		<servlet-name>ProductItem</servlet-name>
-		<servlet-class>com.productitem.controller.ProductItem</servlet-class>
+		<display-name>ShoppingServlet</display-name>
+		<servlet-name>ShoppingServlet</servlet-name>
+		<servlet-class>com.productitem.controller.ShoppingServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>OrderServlet</servlet-name>
@@ -57,8 +55,8 @@
 		<url-pattern>/PRODUCT/ProductShowImage.do</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>ProductItem</servlet-name>
-		<url-pattern>/ORDERITEM/Productitem.do</url-pattern>
+		<servlet-name>ShoppingServlet</servlet-name>
+		<url-pattern>/ORDERITEM/Shopping.do</url-pattern>
 	</servlet-mapping>
 	
 

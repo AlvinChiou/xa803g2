@@ -6,6 +6,7 @@ public class ProdItemVO {
 	private String itemmemo;
 	private String ordno;
 	private Integer prono;
+	private Integer price;
 	public Integer getItemno() {
 		return itemno;
 	}
@@ -36,6 +37,13 @@ public class ProdItemVO {
 	public void setProno(Integer prono) {
 		this.prono = prono;
 	}
+	public Integer getPrice() {
+		return price;
+	}
+	public void setPrice(Integer price) {
+		this.price = price;
+	}
+	
 	
 	
 }

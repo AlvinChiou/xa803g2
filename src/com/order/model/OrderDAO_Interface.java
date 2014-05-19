@@ -1,7 +1,7 @@
 package com.order.model;
 import java.util.*;
 
-import com.productitem.controller.ProductItemServlet;
+import com.productitem.controller.ShoppingServlet;
 import com.productitem.model.ProdItemVO;
 
 public interface OrderDAO_Interface {

@@ -24,12 +24,12 @@ public class ProdItemDAO implements ProdItemDAO_interface{
 			e.printStackTrace();
 		}
 	}
-	private static final String INSERT_STMT = "INSERT INTO Prod_Item(itemno, itemqty, itemmemo, ordno, prono) VALUES(PROD_ITEM_seq.NEXTVAL, ?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT itemno, itemqty, itemmemo, ordno, prono FROM Prod_Item ORDER BY itemno";
-	private static final String GET_ONE_STMT = "SELECT itemno, itemqty, itemmemo, ordno, prono FROM Prod_Item WHERE itemno = ?";
+	private static final String INSERT_STMT = "INSERT INTO Prod_Item(itemno, itemqty, itemmemo, ordno, prono, price) VALUES(PROD_ITEM_seq.NEXTVAL, ?, ?, ?, ?, ?)";
+	private static final String GET_ALL_STMT = "SELECT itemno, itemqty, itemmemo, ordno, prono, price FROM Prod_Item ORDER BY itemno";
+	private static final String GET_ONE_STMT = "SELECT itemno, itemqty, itemmemo, ordno, prono, price FROM Prod_Item WHERE itemno = ?";
 	private static final String DELETE = "DELETE FROM Prod_Item WHERE itemno = ?";
 	private static final String DELETE_ORDNO = "DELETE FROM Prod_Item WHERE ordno = ?";
-	private static final String UPDATE = "UPDATE Prod_Item SET itemqty = ?, itemmemo = ?, ordno = ?, prono = ? WHERE itemno = ?";
+	private static final String UPDATE = "UPDATE Prod_Item SET itemqty = ?, itemmemo = ?, ordno = ?, prono = ?, price = ? WHERE itemno = ?";
 	
 	@Override
 	public void insert(ProdItemVO prodItemVO) {
@@ -42,6 +42,7 @@ public class ProdItemDAO implements ProdItemDAO_interface{
 			pstmt.setString(2, prodItemVO.getItemmemo());
 			pstmt.setString(3, prodItemVO.getOrdno());
 			pstmt.setInt(4, prodItemVO.getProno());
+			pstmt.setInt(5, prodItemVO.getPrice());
 			pstmt.executeUpdate();
 		}catch(SQLException se){
 			throw new RuntimeException("A database error occured."
@@ -75,6 +76,7 @@ public class ProdItemDAO implements ProdItemDAO_interface{
 			pstmt.setString(3, prodItemVO.getOrdno());
 			pstmt.setInt(4, prodItemVO.getProno());
 			pstmt.setInt(5, prodItemVO.getItemno());
+			pstmt.setInt(6, prodItemVO.getPrice());
 			pstmt.executeUpdate();
 		}catch(SQLException se){
 			throw new RuntimeException("A database error occured. "+se.getMessage());
@@ -132,6 +134,9 @@ public class ProdItemDAO implements ProdItemDAO_interface{
 			}
 		}
 	}
+	/* (non-Javadoc)
+	 * @see com.productitem.model.ProdItemDAO_interface#findByPrimaryKey(java.lang.Integer)
+	 */
 	@Override
 	public ProdItemVO findByPrimaryKey(Integer itemno) {
 		ProdItemVO prodItemVO = null;
@@ -151,6 +156,7 @@ public class ProdItemDAO implements ProdItemDAO_interface{
 				prodItemVO.setItemmemo(rs.getString("itemmemo"));
 				prodItemVO.setOrdno(rs.getString("ordno"));
 				prodItemVO.setProno(rs.getInt("prono"));
+				prodItemVO.setPrice(rs.getInt("price"));
 			}
 		}catch(SQLException se){
 			throw new RuntimeException("A database error occured. "+se.getMessage());
@@ -198,6 +204,7 @@ public class ProdItemDAO implements ProdItemDAO_interface{
 				prodItemVO.setItemmemo(rs.getString("itemmemo"));
 				prodItemVO.setOrdno(rs.getString("ordno"));
 				prodItemVO.setProno(rs.getInt("prono"));
+				prodItemVO.setPrice(rs.getInt("price"));
 				list.add(prodItemVO);
 			}
 		}catch(SQLException se){
@@ -239,6 +246,7 @@ public class ProdItemDAO implements ProdItemDAO_interface{
 			pstmt.setString(2, prodItemVO.getItemmemo());
 			pstmt.setString(3, prodItemVO.getOrdno());
 			pstmt.setInt(4, prodItemVO.getProno());
+			pstmt.setInt(5, prodItemVO.getPrice());
 			pstmt.executeUpdate();
 		}catch(SQLException se){
 			if(con != null){

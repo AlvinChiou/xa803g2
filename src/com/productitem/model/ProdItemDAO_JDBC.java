@@ -21,11 +21,12 @@ public class ProdItemDAO_JDBC implements ProdItemDAO_interface {
 	String userid = "xa803g2";
 	String passwd = "xa803g2";
 
-	private static final String INSERT_STMT = "INSERT INTO Prod_Item(itemno, itemqty, itemmemo, ordno, prono) VALUES(PROD_ITEM_seq.NEXTVAL, ?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT itemno, itemqty, itemmemo, ordno, prono FROM Prod_Item ORDER BY itemno";
-	private static final String GET_ONE_STMT = "SELECT itemno, itemqty, itemmemo, ordno, prono FROM Prod_Item WHERE itemno = ?";
+	private static final String INSERT_STMT = "INSERT INTO Prod_Item(itemno, itemqty, itemmemo, ordno, prono, price) VALUES(PROD_ITEM_seq.NEXTVAL, ?, ?, ?, ?, ?)";
+	private static final String GET_ALL_STMT = "SELECT itemno, itemqty, itemmemo, ordno, prono, price FROM Prod_Item ORDER BY itemno";
+	private static final String GET_ONE_STMT = "SELECT itemno, itemqty, itemmemo, ordno, prono, price FROM Prod_Item WHERE itemno = ?";
 	private static final String DELETE = "DELETE FROM Prod_Item WHERE itemno = ?";
-	private static final String UPDATE = "UPDATE Prod_Item SET itemqty = ?, itemmemo = ?, ordno = ?, prono = ? WHERE itemno = ?";
+	private static final String DELETE_ORDNO = "DELETE FROM Prod_Item WHERE ordno = ?";
+	private static final String UPDATE = "UPDATE Prod_Item SET itemqty = ?, itemmemo = ?, ordno = ?, prono = ?, price = ? WHERE itemno = ?";
 
 	@Override
 	public int insert(ProdItemVO prodItemVO) {
@@ -41,7 +42,7 @@ public class ProdItemDAO_JDBC implements ProdItemDAO_interface {
 			pstmt.setString(2, prodItemVO.getItemmemo());
 			pstmt.setString(3, prodItemVO.getOrdno());
 			pstmt.setInt(4, prodItemVO.getProno());
-
+			pstmt.setInt(5, prodItemVO.getPrice());
 			updateCount = pstmt.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. "
@@ -84,6 +85,7 @@ public class ProdItemDAO_JDBC implements ProdItemDAO_interface {
 			pstmt.setString(3, prodItemVO.getOrdno());
 			pstmt.setInt(4, prodItemVO.getProno());
 			pstmt.setInt(5, prodItemVO.getItemno());
+			pstmt.setInt(6, prodItemVO.getPrice());
 			updateCount = pstmt.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. "
@@ -106,43 +108,43 @@ public class ProdItemDAO_JDBC implements ProdItemDAO_interface {
 		return updateCount;
 	}
 
-	@Override
-	public int delete(Integer itemno) {
-		int updateCount = 0;
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(DELETE);
-			pstmt.setInt(1, itemno);
-			updateCount = pstmt.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
-			// Clean up JDBC resources
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-		return updateCount;
-	}
+//	@Override
+//	public int delete(Integer itemno) {
+//		int updateCount = 0;
+//		Connection con = null;
+//		PreparedStatement pstmt = null;
+//		try {
+//			Class.forName(driver);
+//			con = DriverManager.getConnection(url, userid, passwd);
+//			pstmt = con.prepareStatement(DELETE);
+//			pstmt.setInt(1, itemno);
+//			updateCount = pstmt.executeUpdate();
+//		} catch (ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load database driver. "
+//					+ e.getMessage());
+//			// Handle any SQL errors
+//		} catch (SQLException se) {
+//			throw new RuntimeException("A database error occured. "
+//					+ se.getMessage());
+//			// Clean up JDBC resources
+//		} finally {
+//			if (pstmt != null) {
+//				try {
+//					pstmt.close();
+//				} catch (SQLException se) {
+//					se.printStackTrace(System.err);
+//				}
+//			}
+//			if (con != null) {
+//				try {
+//					con.close();
+//				} catch (Exception e) {
+//					e.printStackTrace(System.err);
+//				}
+//			}
+//		}
+//		return updateCount;
+//	}
 
 	@Override
 	public ProdItemVO findByPrimaryKey(Integer itemno) {
@@ -164,6 +166,7 @@ public class ProdItemDAO_JDBC implements ProdItemDAO_interface {
 				prodItemVO.setItemmemo(rs.getString("itemmemo"));
 				prodItemVO.setOrdno(rs.getString("ordno"));
 				prodItemVO.setProno(rs.getInt("prono"));
+				prodItemVO.setPrice(rs.getInt("price"));
 			}
 
 		} catch (ClassNotFoundException e) {
@@ -220,6 +223,7 @@ public class ProdItemDAO_JDBC implements ProdItemDAO_interface {
 				prodItemVO.setItemmemo(rs.getString("itemmemo"));
 				prodItemVO.setOrdno(rs.getString("ordno"));
 				prodItemVO.setProno(rs.getInt("prono"));
+				prodItemVO.setPrice(rs.getInt("price"));
 				list.add(prodItemVO);
 			}
 		} catch (ClassNotFoundException e) {
@@ -297,8 +301,20 @@ public class ProdItemDAO_JDBC implements ProdItemDAO_interface {
 			System.out.println(proItem.getItemmemo());
 			System.out.println(proItem.getOrdno());
 			System.out.println(proItem.getProno());
-			
+			System.out.println(proItem.getPrice());
 		}
+	}
+
+	@Override
+	public int delete(String ordno) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void insertByOrdNo(ProdItemVO prodItemVO, Connection con) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
