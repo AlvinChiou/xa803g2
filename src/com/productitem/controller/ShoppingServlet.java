@@ -54,7 +54,8 @@ public class ShoppingServlet extends HttpServlet {
 				ProdItemVO prodItemVO = new ProdItemVO();
 				prodItemVO.setItemqty(itemqty);
 				prodItemVO.setProno(prono);
-
+				prodItemVO.setPrice(price);
+System.out.println("prono="+prono);				
 				Vector<ProdItemVO> buylist = (Vector<ProdItemVO>) session
 						.getAttribute("shoppingcart");
 				boolean match = false;
@@ -79,14 +80,15 @@ public class ShoppingServlet extends HttpServlet {
 				}// end else
 				session.setAttribute("shoppingcart", buylist);
 				ststusMsgs.add("新增成功");
-				String url = "/ORDERITEM/item.jsp";
+				//String url = "/ORDERITEM/item.jsp";
+				String url = "/ORDERITEM/market.jsp";
 				RequestDispatcher rd = request.getRequestDispatcher(url);
 				rd.forward(request, response);
 				// 其他可能錯誤處理
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料" + e.getMessage());
 				RequestDispatcher failureView = request
-						.getRequestDispatcher("/ORDERITEM/item.jsp");
+						.getRequestDispatcher("/ORDERITEM/additem.jsp");
 				failureView.forward(request, response);
 				return;
 			}
@@ -121,7 +123,7 @@ public class ShoppingServlet extends HttpServlet {
 			buylist.removeElementAt(d);
 
 			session.setAttribute("shoppingcart", buylist);
-			String url = "/ORDERITEM/item.jsp";
+			String url = "/ORDERITEM/market.jsp";
 			RequestDispatcher rd = request.getRequestDispatcher(url);
 			rd.forward(request, response);
 		}

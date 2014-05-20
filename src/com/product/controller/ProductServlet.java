@@ -148,7 +148,7 @@ public class ProductServlet extends HttpServlet {
 			String requestURL = multi.getParameter("requestURL");
 			ProductService proSvc = new ProductService();
 			try {
-				Integer prono = new Integer(multi.getParameter("prono"));
+				Integer prono = new Integer(multi.getParameter("prono"));			
 				String productname = multi.getParameter("productname").trim();
 				String category = multi.getParameter("category").trim();
 				Integer price = new Integer(multi.getParameter("price").trim());
@@ -238,13 +238,12 @@ public class ProductServlet extends HttpServlet {
 				productVO.setQuantity(quantity);
 				productVO.setMinimumquantity(minimumquantity);
 				productVO.setStatus(status);
-				productVO.setKeyword(keyword);
-				productVO.setDescription(description);
+				productVO.setKeyword(keyword);				
 				productVO.setRelatedProducts(relatedProducts);
 				productVO.setPriority(priority);
 				productVO.setDiscount(discount);
 				productVO.setScore(score);
-
+				productVO.setDescription(description);
 				if (!errorMsgs.isEmpty()) {
 					request.setAttribute("productVO", productVO);
 					RequestDispatcher failureView = request
@@ -256,8 +255,8 @@ public class ProductServlet extends HttpServlet {
 				// ProductService proSvc = new ProductService();
 				productVO = proSvc.updateProduct(prono, productname, category,
 						price, image1, image2, image3, quantity,
-						minimumquantity, status, keyword, description,
-						relatedProducts, priority, discount, score);
+						minimumquantity, status, keyword,
+						relatedProducts, priority, discount, score, description);
 
 				// 修改完成準備轉交
 				if (requestURL.equals("/PRODUCT/listAllPorduct.jsp")) {
@@ -292,13 +291,13 @@ public class ProductServlet extends HttpServlet {
 			request.setAttribute("errorMsgs", errorMsgs);
 			
 			try {
-				 System.out.println("UUID 尚未產生");
-				 UUID uniqueKey = UUID.randomUUID();
-				 String prono = uniqueKey.toString().toUpperCase();
-		System.out.println("----------------------------------");
-		System.out.println("uniqueKey="+uniqueKey);
-		System.out.println("String prono="+prono);
-		System.out.println("----------------------------------");
+				 
+//				 UUID uniqueKey = UUID.randomUUID();
+//				 String prono = uniqueKey.toString().toUpperCase();
+//		System.out.println("----------------------------------");
+//		System.out.println("uniqueKey="+uniqueKey);
+//		System.out.println("String prono="+prono);
+//		System.out.println("----------------------------------");
 				
 				String productname = null;
 				if (multi.getParameter("productname").length() != 0) {
@@ -424,8 +423,8 @@ public class ProductServlet extends HttpServlet {
 				ProductService proSvc = new ProductService();
 				productVO = proSvc.addProduct(productname, category, price,
 						image1, image2, image3, quantity, minimumquantity,
-						status, keyword, description, relatedProducts,
-						priority, discount, score);
+						status, keyword, relatedProducts,
+						priority, discount, score, description);
 				// 新增完成，準備轉交Success view
 				String url = "/PRODUCT/listAllProduct.jsp";
 				RequestDispatcher succseeView = request

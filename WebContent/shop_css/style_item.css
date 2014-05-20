@@ -29,8 +29,8 @@ h3 { font-size:12px; line-height:14px; text-transform: uppercase; color:#000; }
 h4 { font-size:12px; line-height:14px; text-transform: uppercase; color:#000; }
 
 
-h1#logo { font-size:0; line-height:0; width:156px; height:64px; float:left; }
-h1#logo a{ display:block; height:64px; text-indent: -4000px; background:url(images/logo.gif); }
+h1#logo { font-size:0; line-height:0; width:297px; height:64px; float:left; }
+h1#logo a{ display:block; height:64px; text-indent: -4000px; background:url(images/logo.png); }
 
 .shell { width:960px; margin:0 auto; padding:10px; background:#fff; }
 
@@ -70,6 +70,8 @@ a.bul { background:url(images/bul.gif) no-repeat 0 center; padding-left:10px;}
 .search select.small-field { width:50px; }
 
 .search-submit { width:70px; background:#8b0000; border:0; color:#fff; height:27px; display:block; line-height:26px; cursor:pointer; margin:12px 0 10px 0;}
+
+.addtocart-button { width:120px; background:#8b0000; border:1; color:#fff; height:40px; display:block; line-height:26px; cursor:pointer; margin:12px 0 10px 0;}
 
 .categories { min-height:383px; }
 .categories ul { list-style-type: none; font-size:13px;}

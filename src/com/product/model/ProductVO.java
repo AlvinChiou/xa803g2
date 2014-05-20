@@ -13,12 +13,12 @@ public class ProductVO implements java.io.Serializable{
 	private Integer quantity;
 	private Integer minimumquantity;
 	private Integer status;
-	private String keyword; //can null
-	private String description;
+	private String keyword; //can null	
 	private String relatedProducts; //can null
 	private Integer priority;
 	private Double discount;
 	private Integer score;
+	private String description;
 	public Integer getProno() {
 		return prono;
 	}
@@ -85,12 +85,6 @@ public class ProductVO implements java.io.Serializable{
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
 	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
 	public String getRelatedProducts() {
 		return relatedProducts;
 	}
@@ -115,6 +109,13 @@ public class ProductVO implements java.io.Serializable{
 	public void setScore(Integer score) {
 		this.score = score;
 	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
 	
 	
 	

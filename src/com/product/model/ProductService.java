@@ -5,7 +5,7 @@ public class ProductService {
 	public ProductService(){
 		dao = new ProductDAO();
 	}
-	public ProductVO addProduct(String productname, String category, Integer price, byte[] image1, byte[] image2, byte[] image3, Integer quantity, Integer minimumquantity, Integer status, String keyword, String description, String relatedProducts, Integer priority, Double discount, Integer score){
+	public ProductVO addProduct(String productname, String category, Integer price, byte[] image1, byte[] image2, byte[] image3, Integer quantity, Integer minimumquantity, Integer status, String keyword, String relatedProducts, Integer priority, Double discount, Integer score, String description){
 		ProductVO productVO = new ProductVO();		
 		productVO.setProductname(productname);
 		productVO.setCategory(category);
@@ -16,16 +16,16 @@ public class ProductService {
 		productVO.setQuantity(quantity);
 		productVO.setMinimumquantity(minimumquantity);
 		productVO.setStatus(status);
-		productVO.setKeyword(keyword);
-		productVO.setDescription(description);
+		productVO.setKeyword(keyword);		
 		productVO.setRelatedProducts(relatedProducts);
 		productVO.setPriority(priority);
 		productVO.setDiscount(discount);
 		productVO.setScore(score);
+		productVO.setDescription(description);
 		dao.insert(productVO);
 		return productVO;
 	}
-	public ProductVO updateProduct(Integer prono, String productname, String category, Integer price, byte[] image1, byte[] image2, byte[] image3, Integer quantity, Integer minimumquantity, Integer status, String keyword, String description, String relatedProducts, Integer priority, Double discount, Integer score){
+	public ProductVO updateProduct(Integer prono, String productname, String category, Integer price, byte[] image1, byte[] image2, byte[] image3, Integer quantity, Integer minimumquantity, Integer status, String keyword, String relatedProducts, Integer priority, Double discount, Integer score, String description){
 		ProductVO productVO = new ProductVO();
 		productVO.setProno(prono);
 		productVO.setProductname(productname);
@@ -38,11 +38,11 @@ public class ProductService {
 		productVO.setMinimumquantity(minimumquantity);
 		productVO.setStatus(status);
 		productVO.setKeyword(keyword);
-		productVO.setDescription(description);
 		productVO.setRelatedProducts(relatedProducts);
 		productVO.setPriority(priority);
 		productVO.setDiscount(discount);
 		productVO.setScore(score);
+		productVO.setDescription(description);
 		dao.update(productVO);
 		return productVO;
 	}
