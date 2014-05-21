@@ -57,6 +57,7 @@
 	</table>
 	<p>
 		<form name="checkoutForm" method="post" action="<%=request.getContextPath()%>/ORDERITEM/Shopping.do">
+			
 			<input type="hidden" name="action" value="CHECKOUT">
 			<div align="right"><input type="submit" value="¥I´Úµ²±b"></div>
 		</form>

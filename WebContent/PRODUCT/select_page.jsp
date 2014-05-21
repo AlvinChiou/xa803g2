@@ -57,16 +57,7 @@
 	<sql:query var="rs" dataSource="${productCategory}">
 		SELECT DISTINCT category FROM product
 	</sql:query>
-
 		<form method="post" action="<%=request.getContextPath()%>/PRODUCT/product.do" name="form1">
-			<b><font color=blue>設定查詢條件</font></b><br>
-			<b>商品編號:</b>
-			<input type="text" name="prono"><br>
-			<b>商品名稱:</b>
-			<input type="text" name="productname"><br>
-			<b>商品分類:</b>
-
-		<form method="post" action="product.do">
 		<b><font color=blue>請設定查詢條件</font></b><br>
 		<b>商品編號:</b>
 		<input type="text" name="prono" value=""><br>

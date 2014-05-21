@@ -478,7 +478,7 @@ public class ProductServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<String>();
 			request.setAttribute("errorMsgs", errorMsgs);
 
-			try {
+			//try {
 				/*************************** 1.將輸入資料轉為Map **********************************/
 				HttpSession session = request.getSession();
 				Map<String, String[]> map = (Map<String, String[]>) session
@@ -500,12 +500,12 @@ public class ProductServlet extends HttpServlet {
 				RequestDispatcher successView = request
 						.getRequestDispatcher("/PRODUCT/listPorduct_ByCompositeQuery.jsp");
 
-			} catch (Exception e) {
-				errorMsgs.add(e.getMessage());  
-				RequestDispatcher failureView = request.getRequestDispatcher("/PRODUCT/select_page.jsp");
-				failureView.forward(request, response);
-
-			}
+//			} catch (Exception e) {
+//				errorMsgs.add(e.getMessage());  
+//				RequestDispatcher failureView = request.getRequestDispatcher("/PRODUCT/select_page.jsp");
+//				failureView.forward(request, response);
+//
+//			}
 		}
 
 	}

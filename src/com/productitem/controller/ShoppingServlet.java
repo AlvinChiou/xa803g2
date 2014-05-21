@@ -97,14 +97,18 @@ System.out.println("prono="+prono);
 		if ("CHECKOUT".equals(action)) {
 			Vector<ProdItemVO> buylist = (Vector<ProdItemVO>) session
 					.getAttribute("shoppingcart");
-			Integer total = 0;
+			int total = 0;
 			for (int i = 0; i < buylist.size(); i++) {
 				ProdItemVO prodItemVO = buylist.get(i);
-				Integer price = prodItemVO.getPrice();
-				Integer itemqty = new Integer(request.getParameter("itemqty")
-						+ i);
-				prodItemVO.setItemqty(itemqty);
-				buylist.add(prodItemVO);
+				int price = prodItemVO.getPrice();
+//				Integer itemqty = new Integer(request.getParameter("itemqty")
+//						+ i);
+				int itemqty = (prodItemVO.getItemqty()+i);
+				
+
+
+//				prodItemVO.setItemqty(itemqty);
+//				buylist.add(prodItemVO);
 				total += (price * itemqty);
 			}
 			String amount = String.valueOf(total);
@@ -162,7 +166,8 @@ System.out.println("prono="+prono);
 				for (int i = 0; i < buylist.size(); i++) {
 					ProdItemVO prodItemVO = buylist.get(i);
 					prodItemVO.setItemqty(prodItemVO.getItemqty());
-					prodItemVO.setItemmemo(prodItemVO.getItemmemo());
+					String itemmemo = new String(request.getParameter("itemmemo")+i);
+					prodItemVO.setItemmemo(itemmemo);
 					prodItemVO.setProno(prodItemVO.getProno());
 					prodItemVO.setPrice(prodItemVO.getPrice());
 					list.add(prodItemVO);
